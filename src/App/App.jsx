@@ -12,34 +12,69 @@ class App extends Component {
                 closeButton: true,
                 header: 'Do you want to delete this file?',
                 text: 'Once you delete this file, it won’t be possible to undo this action. Are you sure you want to delete it?',
-                isShown: false
+                isShown: false,
+                btn1: 'Ok',
+                btn2: 'Cancel'
             },
             {
                 id: 2,
                 closeButton: true,
                 header: 'Do you want to save this file?',
-                text: 'Your file is saved',
-                isShown: false
+                text: 'Your file will be saved',
+                isShown: false,
+                btn1: 'Save',
+                btn2: 'Delete'
             }
         ]
     }
 
-    createModalButtons() {
+    createModalButtons(id, text1, text2) {
         return (
             <>
-                <button className={`${modalStyles.btn} ${modalStyles.okBtn}`}>Ok</button>
-                <button className={`${modalStyles.btn} ${modalStyles.cancelBtn}`}>Cancel</button>
+                <button onClick={() => { this.onClickHandler(id) }} className={`${modalStyles.btn} ${modalStyles.okBtn}`}>{text1}</button>
+                <button onClick={() => { this.onClickHandler(id) }} className={`${modalStyles.btn} ${modalStyles.cancelBtn}`}>{text2}</button>
             </>
         )
     }
 
-    onClickHandler = (id) => {
-        console.log(id);
+
+    onClickHandler = (modalId) => {
+
+        const { modals } = this.state;
+        let currentModal;
+        let restModal;
+
+        modals.forEach((item) => {
+            if (modalId === item.id) {
+                currentModal = item;
+            } else {
+                restModal = item;
+            }
+        })
+
+        this.setState(
+            { modals: [restModal, { ...currentModal, isShown: !currentModal.isShown }] }
+        )
+    }
+
+    closeModalHandler = () => {
+        const { modals } = this.state;
+        let modalsClone = [];
+
+        modals.forEach((item) => {
+            let newItem = { ...item };
+            newItem.isShown = false;
+            modalsClone.push(newItem)
+        })
+
+        this.setState((state) => {
+            return { modals: modalsClone }
+        });
     }
 
     render() {
         const { modals } = this.state;
-        const modalsArr = modals.map(({ id, closeButton, header, text, isShown }) => {
+        const modalsArr = modals.map(({ id, closeButton, header, text, isShown, btn1, btn2 }) => {
             return (
 
                 <Modal key={id}
@@ -48,7 +83,8 @@ class App extends Component {
                     closeButton={closeButton}
                     text={text}
                     isShown={isShown}
-                    actions={this.createModalButtons()} />
+                    actions={this.createModalButtons(id, btn1, btn2)}
+                    closeModalHandler={() => { this.onClickHandler(id) }} />
             )
         })
 
@@ -65,7 +101,7 @@ class App extends Component {
                     <Button text="Open second modal" backgroundColor='#50b4e2' onClickHandler={this.onClickHandler} idModal={2} />
                 </div>
                 {modalsArr}
-                <div className={`${modalStyles.overlay} ${modalStyles.modalBox} ${classHide}`}></div>
+                <div onClick={() => { this.closeModalHandler() }} className={`${modalStyles.overlay} ${modalStyles.modalBox} ${classHide}`}></div>
             </div>
         );
     }

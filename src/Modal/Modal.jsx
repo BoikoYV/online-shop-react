@@ -6,12 +6,12 @@ class Modal extends Component {
     render() {
         const { isShown } = this.props;
 
-        const { header, text, actions, closeButton } = this.props;
+        const { header, text, actions, closeButton, closeModalHandler, id } = this.props;
         return (
             <div className={`${styles.modalBox} ${isShown ? '' : styles.hide}`}>
                 <div className={styles.header}>
                     <h2 className={styles.headerTitle}>{header}</h2>
-                    <button className={closeButton ? styles.closeBtn : ''}></button>
+                    <button onClick={() => { closeModalHandler(id) }} className={closeButton ? styles.closeBtn : ''}></button>
                 </div>
                 <p className={styles.text}>{text}</p>
                 <div className={styles.btnBox}>
