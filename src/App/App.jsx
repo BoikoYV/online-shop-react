@@ -37,7 +37,6 @@ class App extends Component {
         )
     }
 
-
     onClickHandler = (modalId) => {
 
         const { modals } = this.state;
