@@ -1,0 +1,11 @@
+{ 
+    "cardsList": [
+        {
+            "title": "Кашпо для цветов Kelly Flowers",
+            "price":"1300",
+            "articul": "1290",
+            "color": "black",
+            "imgSrc": "img/kelly1.webp"
+        }
+    ]
+}
