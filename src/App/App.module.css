@@ -1,4 +1,4 @@
-.app {
+.appInner {
     background-color: #fff;
     border-radius: 30px;
     min-height: 250px;
@@ -14,4 +14,9 @@
     justify-content: space-around;
     align-items: center;
     flex-grow: 1;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
 }

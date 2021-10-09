@@ -86,12 +86,17 @@ const App = () => {
 
     return (
         <div className={styles.app}>
-            <div className={styles.btnBox}>
-                <Button text="Open first modal" backgroundColor='#1e8b7a' onClickHandler={onClickHandler} idModal={1} />
-                <Button text="Open second modal" backgroundColor='#50b4e2' onClickHandler={onClickHandler} idModal={2} />
+            <div className={styles.container}>
+                <div className={styles.appInner}>
+                    <div className={styles.btnBox}>
+                        <Button text="Open first modal" backgroundColor='#1e8b7a' onClickHandler={onClickHandler} idModal={1} />
+                        <Button text="Open second modal" backgroundColor='#50b4e2' onClickHandler={onClickHandler} idModal={2} />
+                    </div>
+                    {modalsArr}
+
+                    <div onClick={() => { closeModalHandler() }} className={`${modalStyles.overlay} ${modalStyles.modalBox} ${classHide}`}></div>
+                </div>
             </div>
-            {modalsArr}
-            <div onClick={() => { closeModalHandler() }} className={`${modalStyles.overlay} ${modalStyles.modalBox} ${classHide}`}></div>
         </div>
     );
 };
