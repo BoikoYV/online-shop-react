@@ -1,11 +1,11 @@
 body {
-    background: #b4e8e4;
+    /* background: #b4e8e4; */
     margin: 0;
     font-family: sans-serif;
-    display: flex;
+    /* display: flex;
     align-items: center;
     height: 100vh;
-    align-items: center;
+    align-items: center; */
     box-sizing: border-box;
     position: relative;
 }

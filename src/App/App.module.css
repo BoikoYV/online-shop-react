@@ -1,12 +1,12 @@
 .appInner {
-    background-color: #fff;
-    border-radius: 30px;
     min-height: 250px;
+    /* background-color: #fff;
+    border-radius: 30px; 
     width: 500px;
     margin: 0 auto;
     display: flex;
-    align-items: center;
-    padding: 30px;
+    align-items: center; */
+    padding: 30px; 
 }
 
 .btnBox {

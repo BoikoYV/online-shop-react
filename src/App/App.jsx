@@ -1,13 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from '../Button/Button';
 import Modal from '../Modal/Modal';
+import CardsList from '../CardsList/CardsList';
 import styles from './App.module.css';
 import modalStyles from '../Modal/Modal.module.css';
 
 import { getCardsList } from '../api/api';
-
-const list = getCardsList();
-console.log(list);
 
 const App = () => {
     const modalWindows = [{
@@ -30,6 +28,29 @@ const App = () => {
     }]
 
     const [modals, setModals] = useState(modalWindows);
+    const [cardsList, setCardsList] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [hasError, setHasError] = useState(false);
+
+    const fetchCardsList = () => {
+        getCardsList()
+            .then(cards => {
+                console.log(cards);
+                setCardsList(cards);
+            })
+            .catch(err => {
+                console.error(err.message)
+            })
+            .finally(() => {
+                setIsLoading(false);
+            })
+
+    }
+
+    useEffect(() => {
+        fetchCardsList();
+    }, [])
+
 
     const createModalButtons = (id, text1, text2) => {
         return (
@@ -84,16 +105,30 @@ const App = () => {
 
     const classHide = !isOverlay ? modalStyles.hide : '';
 
+
+    let content;
+    if (isLoading) {
+        content = (<p>Loading</p>);
+    }
+    else if (hasError) {
+        content = (<div>Sorry, error</div>)
+    } else {
+        console.log(cardsList);
+        content = (<CardsList cards={cardsList} />);
+    }
+
+
+
     return (
         <div className={styles.app}>
             <div className={styles.container}>
                 <div className={styles.appInner}>
-                    <div className={styles.btnBox}>
+                    {/* <div className={styles.btnBox}>
                         <Button text="Open first modal" backgroundColor='#1e8b7a' onClickHandler={onClickHandler} idModal={1} />
                         <Button text="Open second modal" backgroundColor='#50b4e2' onClickHandler={onClickHandler} idModal={2} />
-                    </div>
+                    </div> */}
                     {modalsArr}
-
+                    {content}
                     <div onClick={() => { closeModalHandler() }} className={`${modalStyles.overlay} ${modalStyles.modalBox} ${classHide}`}></div>
                 </div>
             </div>
