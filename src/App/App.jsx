@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Button from '../Button/Button';
 import Modal from '../Modal/Modal';
 import CardsList from '../CardsList/CardsList';
 import styles from './App.module.css';
@@ -11,8 +10,8 @@ const App = () => {
     const modalWindows = [{
         id: 1,
         closeButton: true,
-        header: 'Do you want to delete this file?',
-        text: 'Once you delete this file, it won’t be possible to undo this action. Are you sure you want to delete it?',
+        header: 'Do you want to add this product to your cart?',
+        text: 'This item will be available in the cart',
         isShown: false,
         btn1: 'Ok',
         btn2: 'Cancel'
@@ -64,7 +63,6 @@ const App = () => {
     const onClickHandler = (modalId) => {
         let currentModal;
         let restModal;
-
         modals.forEach((item) => {
             if (modalId === item.id) {
                 currentModal = item;
@@ -113,8 +111,7 @@ const App = () => {
     else if (hasError) {
         content = (<div>Sorry, error</div>)
     } else {
-        console.log(cardsList);
-        content = (<CardsList cards={cardsList} />);
+        content = (<CardsList cards={cardsList} onClickHandler={onClickHandler} idModal={1} />);
     }
 
 
@@ -129,7 +126,7 @@ const App = () => {
                     </div> */}
                     {modalsArr}
                     {content}
-                    <div onClick={() => { closeModalHandler() }} className={`${modalStyles.overlay} ${modalStyles.modalBox} ${classHide}`}></div>
+                    <div onClick={() => { closeModalHandler() }} className={`${modalStyles.overlay} ${classHide}`}></div>
                 </div>
             </div>
         </div>
