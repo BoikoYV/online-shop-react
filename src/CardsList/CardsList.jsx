@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Card from '../Card/Card';
 import PropTypes from 'prop-types';
 import styles from './CardsList.module.css';
 
 
-const CardsList = ({ cards, onClickHandler, idModal }) => {
+const CardsList = ({ cards, onClickHandler, idModal}) => {
     const cardsComponents = cards.cardsList.map(({ title, price, articul, color, imgSrc }) => {
         return (
             <Card key={articul}
@@ -19,19 +19,21 @@ const CardsList = ({ cards, onClickHandler, idModal }) => {
     })
 
     return (
-
         <ul className={styles.list}>
             {cardsComponents}
         </ul>
-
     );
 };
 
 CardsList.propTypes = {
-    cardsList: PropTypes.array.isRequired
+    cards: PropTypes.object.isRequired,
+    onClickHandler: PropTypes.func.isRequired,
+    idModal: PropTypes.number,
 };
+
 CardsList.defaultProps = {
-    cardsList: []
+    cards: {},
+    idModal: 1
 };
 
 export default CardsList;

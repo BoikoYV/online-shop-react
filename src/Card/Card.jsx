@@ -2,12 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './Card.module.css';
 import Button from '../Button/Button';
+const NOIMGSRC = 'img/notfound.png';
 
 const Card = ({ title, price, articul, color, imgSrc, onClickHandler, idModal }) => {
 
     return (
         <li className={styles.item}>
-            <img className={styles.itemImg} src={imgSrc} alt="bed for pets" />
+            <img className={styles.itemImg} src={imgSrc ? imgSrc : NOIMGSRC} alt="bed for pets" />
             <div className={styles.cardInfo}>
                 <h2 className={styles.title}>{title}</h2>
                 <p className={styles.cardColor}>
@@ -24,19 +25,25 @@ const Card = ({ title, price, articul, color, imgSrc, onClickHandler, idModal })
                 </button>
 
                 <p className={styles.cardPrice}>{price} UAH</p>
-                <Button text='Add to card' onClickHandler={() => onClickHandler(idModal)} />
+                <Button text='Add to card' onClickHandler={() => onClickHandler(idModal, articul)} />
             </div>
         </li>
     );
 };
 
-// Card.propTypes = {
-//     title: PropTypes.string.isRequired,
-//     imgSrc: PropTypes.string.isRequired,
-//     price: PropTypes.number.isRequired,
-//     articul: PropTypes.number.isRequired,
-//     color: PropTypes.string.isRequired,
+Card.propTypes = {
+    title: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    articul: PropTypes.number.isRequired,
+    color: PropTypes.string.isRequired,
+    imgSrc: PropTypes.string,
+    onClickHandler: PropTypes.func.isRequired,
+    idModal: PropTypes.number,
 
-// };
+};
 
+Card.defaultProps = {
+    imgSrc: "",
+    idModal: 1
+};
 export default Card;

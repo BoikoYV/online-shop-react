@@ -30,7 +30,9 @@ const App = () => {
     const [cardsList, setCardsList] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [hasError, setHasError] = useState(false);
-
+    const [cardsInCart, setCardsInCart] = useState([]);
+    const [currrentArticul, setCurrrentArticul] = useState(null);
+   
     const fetchCardsList = () => {
         getCardsList()
             .then(cards => {
@@ -50,17 +52,28 @@ const App = () => {
         fetchCardsList();
     }, [])
 
-
     const createModalButtons = (id, text1, text2) => {
         return (
             <>
-                <button onClick={() => { onClickHandler(id) }} className={`${modalStyles.btn} ${modalStyles.okBtn}`}>{text1}</button>
-                <button onClick={() => { onClickHandler(id) }} className={`${modalStyles.btn} ${modalStyles.cancelBtn}`}>{text2}</button>
+                <button onClick={() => { addToCartHandler(currrentArticul) }} className={`${modalStyles.btn} ${modalStyles.okBtn}`}>{text1}</button>
+                <button onClick={() => { closeModalHandler() }} className={`${modalStyles.btn} ${modalStyles.cancelBtn}`}>{text2}</button>
             </>
         )
     }
 
-    const onClickHandler = (modalId) => {
+    const addToCartHandler = (articulName) => {
+        const addedCard = cardsList.cardsList.find(({articul}) => articul === articulName);
+        console.log(addedCard);
+        if (!cardsInCart.includes(addedCard)) {
+            setCardsInCart([...cardsInCart, addedCard])
+        }
+        closeModalHandler();
+    }
+
+
+    const onClickHandler = (modalId, articul) => {
+        setCurrrentArticul(articul);
+        
         let currentModal;
         let restModal;
         modals.forEach((item) => {
@@ -93,7 +106,7 @@ const App = () => {
                 text={text}
                 isShown={isShown}
                 actions={createModalButtons(id, btn1, btn2)}
-                closeModalHandler={() => { onClickHandler(id) }} />
+                closeModalHandler={() => { onClickHandler(id) }}/>
         )
     })
 
@@ -114,16 +127,10 @@ const App = () => {
         content = (<CardsList cards={cardsList} onClickHandler={onClickHandler} idModal={1} />);
     }
 
-
-
     return (
         <div className={styles.app}>
             <div className={styles.container}>
                 <div className={styles.appInner}>
-                    {/* <div className={styles.btnBox}>
-                        <Button text="Open first modal" backgroundColor='#1e8b7a' onClickHandler={onClickHandler} idModal={1} />
-                        <Button text="Open second modal" backgroundColor='#50b4e2' onClickHandler={onClickHandler} idModal={2} />
-                    </div> */}
                     {modalsArr}
                     {content}
                     <div onClick={() => { closeModalHandler() }} className={`${modalStyles.overlay} ${classHide}`}></div>
