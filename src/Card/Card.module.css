@@ -53,10 +53,13 @@
 }
 
 .favouriteIcon {
-    /* fill: #ffc107; */
     width: 20px;
     height: 20px;
     position: absolute;
     top: 8px;
     right: 9px;
+}
+
+.isFavourite path {
+    fill: #ffc107;
 }

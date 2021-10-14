@@ -31,12 +31,13 @@ const App = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [hasError, setHasError] = useState(false);
     const [cardsInCart, setCardsInCart] = useState([]);
-    const [currrentArticul, setCurrrentArticul] = useState(null);
-   
+    const [cardsInFavorites, setCardsInFavorites] = useState([]);
+
+    const [currrentAddToCartArticul, setCurrrentAddToCartArticul] = useState(null);
+
     const fetchCardsList = () => {
         getCardsList()
             .then(cards => {
-                console.log(cards);
                 setCardsList(cards);
             })
             .catch(err => {
@@ -52,17 +53,17 @@ const App = () => {
         fetchCardsList();
     }, [])
 
-    const createModalButtons = (id, text1, text2) => {
+    const createModalButtons = (text1, text2) => {
         return (
             <>
-                <button onClick={() => { addToCartHandler(currrentArticul) }} className={`${modalStyles.btn} ${modalStyles.okBtn}`}>{text1}</button>
+                <button onClick={() => { addToCartHandler(currrentAddToCartArticul) }} className={`${modalStyles.btn} ${modalStyles.okBtn}`}>{text1}</button>
                 <button onClick={() => { closeModalHandler() }} className={`${modalStyles.btn} ${modalStyles.cancelBtn}`}>{text2}</button>
             </>
         )
     }
 
     const addToCartHandler = (articulName) => {
-        const addedCard = cardsList.cardsList.find(({articul}) => articul === articulName);
+        const addedCard = cardsList.cardsList.find(({ articul }) => articul === articulName);
         console.log(addedCard);
         if (!cardsInCart.includes(addedCard)) {
             setCardsInCart([...cardsInCart, addedCard])
@@ -70,10 +71,24 @@ const App = () => {
         closeModalHandler();
     }
 
+    const addToFavouritesHandler = (articul) => {
+
+        if (cardsInFavorites.includes(articul)) {
+            const favourites = cardsInFavorites.filter((articulNum) => articulNum !== articul)
+            setCardsInFavorites(favourites);
+        } else {
+            setCardsInFavorites([...cardsInFavorites, articul]);
+        };
+    };
+
+    const changeFavouriteHandler = (articul) => {
+        addToFavouritesHandler(articul);
+    };
 
     const onClickHandler = (modalId, articul) => {
-        setCurrrentArticul(articul);
-        
+
+        setCurrrentAddToCartArticul(articul);
+
         let currentModal;
         let restModal;
         modals.forEach((item) => {
@@ -105,8 +120,8 @@ const App = () => {
                 closeButton={closeButton}
                 text={text}
                 isShown={isShown}
-                actions={createModalButtons(id, btn1, btn2)}
-                closeModalHandler={() => { onClickHandler(id) }}/>
+                actions={createModalButtons(btn1, btn2)}
+                closeModalHandler={() => { onClickHandler(id) }} />
         )
     })
 
@@ -124,7 +139,13 @@ const App = () => {
     else if (hasError) {
         content = (<div>Sorry, error</div>)
     } else {
-        content = (<CardsList cards={cardsList} onClickHandler={onClickHandler} idModal={1} />);
+        content = (
+            <CardsList cards={cardsList}
+                onClickHandler={onClickHandler}
+                idModal={1}
+                addToFavouritesHandler={addToFavouritesHandler}
+                changeFavouriteHandler={changeFavouriteHandler} />
+        )
     }
 
     return (
