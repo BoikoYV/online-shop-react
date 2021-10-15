@@ -1,11 +1,10 @@
-.app {
-    background-color: #fff;
-    border-radius: 30px;
+.disableScroll {
+    overflow: hidden;
+}
+
+.appInner {
     min-height: 250px;
-    width: 500px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
+    position: relative;
     padding: 30px;
 }
 
@@ -14,4 +13,9 @@
     justify-content: space-around;
     align-items: center;
     flex-grow: 1;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
 }

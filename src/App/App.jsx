@@ -1,48 +1,79 @@
-import React, { Component } from 'react';
-import Button from '../Button/Button';
+import React, { useState, useEffect } from 'react';
 import Modal from '../Modal/Modal';
+import CardsList from '../CardsList/CardsList';
 import styles from './App.module.css';
 import modalStyles from '../Modal/Modal.module.css';
+import { getCardsList } from '../api/api';
 
-class App extends Component {
-    state = {
-        modals: [
-            {
-                id: 1,
-                closeButton: true,
-                header: 'Do you want to delete this file?',
-                text: 'Once you delete this file, it won’t be possible to undo this action. Are you sure you want to delete it?',
-                isShown: false,
-                btn1: 'Ok',
-                btn2: 'Cancel'
-            },
-            {
-                id: 2,
-                closeButton: true,
-                header: 'Do you want to save this file?',
-                text: 'Your file will be saved',
-                isShown: false,
-                btn1: 'Save',
-                btn2: 'Delete'
-            }
-        ]
+
+const getDataFromLs = (key) => {
+    const saved = localStorage.getItem(key);
+    const initialValue = JSON.parse(saved);
+
+    return initialValue || [];
+}
+
+const App = () => {
+    const modalWindows = [{
+        id: 1,
+        closeButton: true,
+        header: 'Do you want to add this product to your cart?',
+        text: 'This item will be available in the cart',
+        isShown: false,
+        btn1: 'Ok',
+        btn2: 'Cancel'
+    },
+    {
+        id: 2,
+        closeButton: true,
+        header: 'Do you want to save this file?',
+        text: 'Your file will be saved',
+        isShown: false,
+        btn1: 'Save',
+        btn2: 'Delete'
+    }]
+
+    const [modals, setModals] = useState(modalWindows);
+    const [cardsList, setCardsList] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [hasError, setHasError] = useState(false);
+    const [cardsInCart, setCardsInCart] = useState(getDataFromLs('cardsInCart'));
+    const [cardsInFavorites, setCardsInFavorites] = useState(getDataFromLs('favouriteCards'));
+
+    const [currrentCardArticul, setCurrrentCardArticul] = useState(null);
+
+    const fetchCardsList = () => {
+        getCardsList()
+            .then(cards => {
+                setCardsList(cards);
+            })
+            .catch(err => {
+                console.error(err.message)
+            })
+            .finally(() => {
+                setIsLoading(false);
+            })
     }
 
-    createModalButtons(id, text1, text2) {
+    useEffect(() => {
+        fetchCardsList();
+    }, [])
+
+    // Modals
+    const createModalButtons = (text1, text2) => {
         return (
             <>
-                <button onClick={() => { this.onClickHandler(id) }} className={`${modalStyles.btn} ${modalStyles.okBtn}`}>{text1}</button>
-                <button onClick={() => { this.onClickHandler(id) }} className={`${modalStyles.btn} ${modalStyles.cancelBtn}`}>{text2}</button>
+                <button onClick={() => { addCardsToCartHandler(currrentCardArticul) }} className={`${modalStyles.btn} ${modalStyles.okBtn}`}>{text1}</button>
+                <button onClick={() => { closeModalHandler() }} className={`${modalStyles.btn} ${modalStyles.cancelBtn}`}>{text2}</button>
             </>
         )
     }
 
-    onClickHandler = (modalId) => {
+    const onClickHandler = (modalId, articul) => {
+        setCurrrentCardArticul(articul);
 
-        const { modals } = this.state;
         let currentModal;
         let restModal;
-
         modals.forEach((item) => {
             if (modalId === item.id) {
                 currentModal = item;
@@ -50,14 +81,10 @@ class App extends Component {
                 restModal = item;
             }
         })
-
-        this.setState(
-            { modals: [restModal, { ...currentModal, isShown: !currentModal.isShown }] }
-        )
+        setModals([restModal, { ...currentModal, isShown: !currentModal.isShown }])
     }
 
-    closeModalHandler = () => {
-        const { modals } = this.state;
+    const closeModalHandler = () => {
         let modalsClone = [];
 
         modals.forEach((item) => {
@@ -65,45 +92,86 @@ class App extends Component {
             newItem.isShown = false;
             modalsClone.push(newItem)
         })
-
-        this.setState((state) => {
-            return { modals: modalsClone }
-        });
+        setModals(modalsClone);
     }
 
-    render() {
-        const { modals } = this.state;
-        const modalsArr = modals.map(({ id, closeButton, header, text, isShown, btn1, btn2 }) => {
-            return (
-
-                <Modal key={id}
-                    id={id}
-                    header={header}
-                    closeButton={closeButton}
-                    text={text}
-                    isShown={isShown}
-                    actions={this.createModalButtons(id, btn1, btn2)}
-                    closeModalHandler={() => { this.onClickHandler(id) }} />
-            )
-        })
-
-        const isOverlay = modals.some((item) => {
-            return item.isShown;
-        })
-
-        const classHide = !isOverlay ? modalStyles.hide : '';
-
+    const modalsArr = modals.map(({ id, closeButton, header, text, isShown, btn1, btn2 }) => {
         return (
-            <div className={styles.app}>
-                <div className={styles.btnBox}>
-                    <Button text="Open first modal" backgroundColor='#1e8b7a' onClickHandler={this.onClickHandler} idModal={1} />
-                    <Button text="Open second modal" backgroundColor='#50b4e2' onClickHandler={this.onClickHandler} idModal={2} />
-                </div>
-                {modalsArr}
-                <div onClick={() => { this.closeModalHandler() }} className={`${modalStyles.overlay} ${modalStyles.modalBox} ${classHide}`}></div>
-            </div>
-        );
+            <Modal key={id}
+                id={id}
+                header={header}
+                closeButton={closeButton}
+                text={text}
+                isShown={isShown}
+                actions={createModalButtons(btn1, btn2)}
+                closeModalHandler={() => { onClickHandler(id) }} />
+        )
+    })
+
+    const isOverlay = modals.some((item) => {
+        return item.isShown;
+    })
+
+    const classHide = !isOverlay ? modalStyles.hide : '';
+
+    // Cart
+    const addCardsToCartHandler = (articulName) => {
+        if (!cardsInCart.includes(articulName)) {
+            setCardsInCart([...cardsInCart, articulName]);
+        }
+        closeModalHandler();
     }
-}
+
+    // Favourites
+    const changeFavouriteHandler = (articul) => {
+        if (cardsInFavorites.includes(articul)) {
+            const favourites = cardsInFavorites.filter((articulNum) => articulNum !== articul)
+            setCardsInFavorites(favourites);
+        } else {
+            setCardsInFavorites([...cardsInFavorites, articul]);
+        };
+    };
+
+    let content;
+    if (isLoading) {
+        content = (<p>Loading</p>);
+    }
+    else if (hasError) {
+        content = (<div>Sorry, error</div>)
+    } else {
+        content = (
+            <CardsList cards={cardsList}
+                onClickHandler={onClickHandler}
+                idModal={1}
+                changeFavouriteHandler={changeFavouriteHandler}
+                favouritesCardsArr={cardsInFavorites} />
+        )
+    }
+
+    // LocalStorage
+    useEffect(() => {
+        localStorage.setItem('cardsInCart', JSON.stringify(cardsInCart));
+    }, [cardsInCart])
+
+    useEffect(() => {
+        localStorage.setItem('favouriteCards', JSON.stringify(cardsInFavorites));
+    }, [cardsInFavorites])
+
+
+
+    return (
+        <div className={styles.app}>
+            <div className={styles.container}>
+                <div className={styles.appInner}>
+                    {modalsArr}
+                    {content}
+                    <div onClick={() => { closeModalHandler() }} className={`${modalStyles.overlay} ${classHide}`}></div>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+
 
 export default App;

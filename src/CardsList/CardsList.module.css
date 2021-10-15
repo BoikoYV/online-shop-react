@@ -1,0 +1,10 @@
+.list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    column-gap: 30px;
+    row-gap: 40px;
+    justify-items: center;
+    padding-left: 0;
+    margin: 0;
+    list-style: none;
+}

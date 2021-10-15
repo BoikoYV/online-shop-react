@@ -7,9 +7,12 @@
     flex-direction: column;
     left: 0;
     right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    position: fixed;
     margin: 0 auto;
     border-radius: 15px;
-    box-shadow: 0px 2px 12px 1px rgb(72 62 121 / 60%);
+    box-shadow: 0px 2px 12px 1px rgba(72, 62, 121, 60%);
     padding-bottom: 20px;
 }
 
@@ -19,8 +22,12 @@
     display: flex;
     padding: 20px;
     border-bottom: 2px solid #a795ff;
-    background-color: #b3a9f4;
+    background-color: #d3cdf9;
     border-radius: 10px 10px 0 0;
+}
+
+.headerTitle {
+    font-size: 18px;
 }
 
 .closeBtn {

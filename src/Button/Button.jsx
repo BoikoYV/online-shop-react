@@ -1,18 +1,25 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styles from './Button.module.css';
+import PropTypes from 'prop-types';
 
-class Button extends Component {
+const Button = ({ text, onClickHandler, idModal }) => {
+    return (
+        <button className={styles.btn}
+            onClick={() => onClickHandler(idModal)}>
+            {text}
+        </button>
+    );
+};
 
-    render() {
-        const { backgroundColor, text, onClickHandler, idModal } = this.props;
-        return (
-            <>
-                <button className={styles.btn}
-                    style={{ backgroundColor: backgroundColor }}
-                    onClick={() => { onClickHandler(idModal) }}>{text}</button>
-            </>
-        );
-    }
+Button.propTypes = {
+    text: PropTypes.string.isRequired,
+    onClickHandler: PropTypes.func.isRequired,
+    idModal: PropTypes.number
+};
+
+Button.defaultProps = {
+    idModal: 1
 }
+
 
 export default Button;
