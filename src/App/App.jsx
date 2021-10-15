@@ -3,8 +3,15 @@ import Modal from '../Modal/Modal';
 import CardsList from '../CardsList/CardsList';
 import styles from './App.module.css';
 import modalStyles from '../Modal/Modal.module.css';
-
 import { getCardsList } from '../api/api';
+
+
+const getDataFromLs = (key) => {
+    const saved = localStorage.getItem(key);
+    const initialValue = JSON.parse(saved);
+
+    return initialValue || [];
+}
 
 const App = () => {
     const modalWindows = [{
@@ -30,10 +37,10 @@ const App = () => {
     const [cardsList, setCardsList] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [hasError, setHasError] = useState(false);
-    const [cardsInCart, setCardsInCart] = useState([]);
-    const [cardsInFavorites, setCardsInFavorites] = useState([]);
+    const [cardsInCart, setCardsInCart] = useState(getDataFromLs('cardsInCart'));
+    const [cardsInFavorites, setCardsInFavorites] = useState(getDataFromLs('favouriteCards'));
 
-    const [currrentAddToCartArticul, setCurrrentAddToCartArticul] = useState(null);
+    const [currrentCardArticul, setCurrrentCardArticul] = useState(null);
 
     const fetchCardsList = () => {
         getCardsList()
@@ -46,48 +53,24 @@ const App = () => {
             .finally(() => {
                 setIsLoading(false);
             })
-
     }
 
     useEffect(() => {
         fetchCardsList();
     }, [])
 
+    // Modals
     const createModalButtons = (text1, text2) => {
         return (
             <>
-                <button onClick={() => { addToCartHandler(currrentAddToCartArticul) }} className={`${modalStyles.btn} ${modalStyles.okBtn}`}>{text1}</button>
+                <button onClick={() => { addCardsToCartHandler(currrentCardArticul) }} className={`${modalStyles.btn} ${modalStyles.okBtn}`}>{text1}</button>
                 <button onClick={() => { closeModalHandler() }} className={`${modalStyles.btn} ${modalStyles.cancelBtn}`}>{text2}</button>
             </>
         )
     }
 
-    const addToCartHandler = (articulName) => {
-        const addedCard = cardsList.cardsList.find(({ articul }) => articul === articulName);
-        console.log(addedCard);
-        if (!cardsInCart.includes(addedCard)) {
-            setCardsInCart([...cardsInCart, addedCard])
-        }
-        closeModalHandler();
-    }
-
-    const addToFavouritesHandler = (articul) => {
-
-        if (cardsInFavorites.includes(articul)) {
-            const favourites = cardsInFavorites.filter((articulNum) => articulNum !== articul)
-            setCardsInFavorites(favourites);
-        } else {
-            setCardsInFavorites([...cardsInFavorites, articul]);
-        };
-    };
-
-    const changeFavouriteHandler = (articul) => {
-        addToFavouritesHandler(articul);
-    };
-
     const onClickHandler = (modalId, articul) => {
-
-        setCurrrentAddToCartArticul(articul);
+        setCurrrentCardArticul(articul);
 
         let currentModal;
         let restModal;
@@ -131,6 +114,23 @@ const App = () => {
 
     const classHide = !isOverlay ? modalStyles.hide : '';
 
+    // Cart
+    const addCardsToCartHandler = (articulName) => {
+        if (!cardsInCart.includes(articulName)) {
+            setCardsInCart([...cardsInCart, articulName]);
+        }
+        closeModalHandler();
+    }
+
+    // Favourites
+    const changeFavouriteHandler = (articul) => {
+        if (cardsInFavorites.includes(articul)) {
+            const favourites = cardsInFavorites.filter((articulNum) => articulNum !== articul)
+            setCardsInFavorites(favourites);
+        } else {
+            setCardsInFavorites([...cardsInFavorites, articul]);
+        };
+    };
 
     let content;
     if (isLoading) {
@@ -143,10 +143,21 @@ const App = () => {
             <CardsList cards={cardsList}
                 onClickHandler={onClickHandler}
                 idModal={1}
-                addToFavouritesHandler={addToFavouritesHandler}
-                changeFavouriteHandler={changeFavouriteHandler} />
+                changeFavouriteHandler={changeFavouriteHandler}
+                favouritesCardsArr={cardsInFavorites} />
         )
     }
+
+    // LocalStorage
+    useEffect(() => {
+        localStorage.setItem('cardsInCart', JSON.stringify(cardsInCart));
+    }, [cardsInCart])
+
+    useEffect(() => {
+        localStorage.setItem('favouriteCards', JSON.stringify(cardsInFavorites));
+    }, [cardsInFavorites])
+
+
 
     return (
         <div className={styles.app}>
