@@ -1,0 +1,6 @@
+.item {
+    display: grid;
+    grid-template-columns: 130px 160px 100px 100px 50px;
+}
+
+.deleteItemBtn {}
