@@ -8,13 +8,11 @@ const createModalButtons = (text1, text2, okBtnFunc, cancelBtnFunc, currentArtic
                 onClickHandler={() => { okBtnFunc(currentArticul) }}
                 className={`${modalStyles.btn} ${modalStyles.okBtn}`}
                 text={text1}
-                idModal={1}
             />
             <Button
                 onClickHandler={() => { cancelBtnFunc() }}
                 className={`${modalStyles.btn} ${modalStyles.cancelBtn}`}
                 text={text2}
-                idModal={1}
             />
         </>
     )
