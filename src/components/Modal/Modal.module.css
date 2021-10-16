@@ -51,7 +51,7 @@
     justify-content: center;
 }
 
-.btn {
+.btnBox button {
     background-color: #9b8cf1;
     padding: 15px;
     border-radius: 15px;
@@ -62,10 +62,6 @@
 
 .btn:hover {
     background-color: #6a52ee;
-}
-
-.okBtn {
-    margin-right: 20px;
 }
 
 .overlay {

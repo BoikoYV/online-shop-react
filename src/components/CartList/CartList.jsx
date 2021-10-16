@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import styles from './CartList.module.css';
 import CardInCart from '../CardInCart/CardInCart';
 
-const CartList = ({ cards }) => {
+const CartList = ({ cards, deleteFromCartHandler }) => {
     console.log(cards);
     let cardsComponents = cards.map(({ title, price, articul, color, imgSrc }) => {
         return (
@@ -11,7 +11,8 @@ const CartList = ({ cards }) => {
                 price={price}
                 articul={articul}
                 color={color}
-                imgSrc={imgSrc} />
+                imgSrc={imgSrc}
+                deleteFromCartHandler={deleteFromCartHandler} />
         )
     });
 

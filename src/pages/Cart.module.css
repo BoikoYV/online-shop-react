@@ -6,10 +6,26 @@
 
 .cartTitle {
     margin-bottom: 40px;
+    font-family: "Alumatica", sans-serif;
 }
 
 .listTitles {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: 120px repeat(4, 1fr);
+    column-gap: 3%;
     justify-content: space-between;
+    margin-bottom: 40px;
+    border-bottom: 1px solid #586ece26;
+    padding-bottom: 30px;
+}
+
+.cartSection {
+    padding: 30px 0;
+}
+
+.noItemsTitle {
+    font-weight: 500;
+    font-family: "Alumatica", sans-serif;
+    font-size: 20px;
+    color: #667ad1;
 }

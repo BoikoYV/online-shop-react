@@ -2,30 +2,13 @@ import React, { useState, useEffect } from 'react';
 import Modal from '../components/Modal/Modal';
 import CardsList from '../components/CardsList/CardsList';
 import styles from '../App/App.module.css';
-import modalStyles from '../components/Modal/Modal.module.css';
 import { getCardsList } from '../api/api';
 import { getDataFromLs } from '../getDataFromLs'
-
+import modalStyles from '../components/Modal/Modal.module.css';
+import modalWindows from '../components/Modal/modals';
+import createModalButtons from '../components/Modal/createModalButtons';
 
 const Cards = () => {
-    const modalWindows = [{
-        id: 1,
-        closeButton: true,
-        header: 'Do you want to add this product to your cart?',
-        text: 'This item will be available in the cart',
-        isShown: false,
-        btn1: 'Ok',
-        btn2: 'Cancel'
-    },
-    {
-        id: 2,
-        closeButton: true,
-        header: 'Do you want to save this file?',
-        text: 'Your file will be saved',
-        isShown: false,
-        btn1: 'Save',
-        btn2: 'Delete'
-    }]
 
     const [modals, setModals] = useState(modalWindows);
     const [cardsList, setCardsList] = useState([]);
@@ -46,22 +29,21 @@ const Cards = () => {
             .finally(() => {
                 setIsLoading(false);
             })
-    }
+    };
 
     useEffect(() => {
         fetchCardsList();
-    }, [])
+    }, []);
 
-    // Modals
-    const createModalButtons = (text1, text2) => {
-        return (
-            <>
-                <button onClick={() => { addCardsToCartHandler(currrentCardArticul) }} className={`${modalStyles.btn} ${modalStyles.okBtn}`}>{text1}</button>
-                <button onClick={() => { closeModalHandler() }} className={`${modalStyles.btn} ${modalStyles.cancelBtn}`}>{text2}</button>
-            </>
-        )
+    // Cart
+    const addCardsToCartHandler = (articulName) => {
+        if (!cardsInCart.includes(articulName)) {
+            setCardsInCart([...cardsInCart, articulName]);
+        }
+        closeModalHandler();
     }
 
+    // Modals
     const onClickHandler = (modalId, articul) => {
         setCurrrentCardArticul(articul);
 
@@ -88,6 +70,7 @@ const Cards = () => {
         setModals(modalsClone);
     }
 
+
     const modalsArr = modals.map(({ id, closeButton, header, text, isShown, btn1, btn2 }) => {
         return (
             <Modal key={id}
@@ -96,7 +79,7 @@ const Cards = () => {
                 closeButton={closeButton}
                 text={text}
                 isShown={isShown}
-                actions={createModalButtons(btn1, btn2)}
+                actions={createModalButtons(btn1, btn2, addCardsToCartHandler, closeModalHandler, currrentCardArticul)}
                 closeModalHandler={() => { onClickHandler(id) }} />
         )
     })
@@ -105,16 +88,9 @@ const Cards = () => {
         return item.isShown;
     })
 
+
     const classHide = !isOverlay ? modalStyles.hide : '';
 
-    // Cart
-
-    const addCardsToCartHandler = (articulName) => {
-        if (!cardsInCart.includes(articulName)) {
-            setCardsInCart([...cardsInCart, articulName]);
-        }
-        closeModalHandler();
-    }
 
     // Favourites
     const changeFavouriteHandler = (articul) => {
@@ -143,7 +119,7 @@ const Cards = () => {
                 favouritesCardsArr={cardsInFavorites} />
         )
     }
-    
+
     // LocalStorage
     useEffect(() => {
         localStorage.setItem('cardsInCart', JSON.stringify(cardsInCart));

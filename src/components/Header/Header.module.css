@@ -8,6 +8,7 @@
     display: flex;
     flex-grow: 1;
     justify-content: center;
+    font-family: "Alumatica", sans-serif;
 }
 
 .logo {
@@ -42,7 +43,6 @@
 .header {
     padding-top: 10px;
     padding-bottom: 10px;
-    margin-bottom: 30px;
     box-shadow: 0px 0px 10px 1px hsl(0deg, 0%, 82%, 49%);
 }
 

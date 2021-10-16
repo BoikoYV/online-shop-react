@@ -3,8 +3,11 @@ import styles from './Cart.module.css';
 import { getDataFromLs } from '../getDataFromLs';
 import { getCardsList } from '../api/api';
 import CartList from '../components/CartList/CartList';
+import modalWindows from '../components/Modal/modals'
+import Modal from '../components/Modal/Modal';
 
 const Cart = () => {
+    const [modals, setModals] = useState(modalWindows);
     const [cardsList, setCardsList] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [hasError, setHasError] = useState(false);
@@ -32,6 +35,12 @@ const Cart = () => {
         fetchCardsList();
     }, [])
 
+    const deleteFromCartHandler = (articulNum) => {
+
+        const [articul, ...rest] = cardsInCart;
+        setCardsInCart(rest);
+    }
+
     let content;
     if (isLoading) {
         content = (<p>Loading</p>);
@@ -40,15 +49,19 @@ const Cart = () => {
     }
     else {
         if (cardsInCart.length < 1) {
-            content = 'No items in cart';
+            content = <p className={styles.noItemsTitle}>No items in cart</p>;
         } else {
             const filteredCards = cardsList.cardsList.filter(({ articul }) => cardsInCart.includes(articul));
-            content = (<CartList cards={filteredCards} />)
+            content = (<CartList 
+                cards={filteredCards} 
+                deleteFromCartHandler={deleteFromCartHandler} />)
         }
     }
 
+
+
     return (
-        <div>
+        <div className={styles.cartSection}>
             <div className={styles.container}>
                 <h2 className={styles.cartTitle}>Cart - {cardsInCart.length} items</h2>
                 <ul className={styles.listTitles}>
