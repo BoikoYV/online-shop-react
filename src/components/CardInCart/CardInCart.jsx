@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './CardInCart.module.css'
 
-const CardInCart = (articul, imgSrc, title, color, price) => {
+const CardInCart = ({ articul, imgSrc, title, color, price }) => {
     return (
         <li className={styles.item}>
             <img src={imgSrc} alt={title} className={styles.img} />
@@ -16,6 +16,18 @@ const CardInCart = (articul, imgSrc, title, color, price) => {
             <button className={styles.deleteItemBtn}>Delete</button>
         </li>
     )
+}
+
+CardInCart.propTypes = {
+    articul: PropTypes.number.isRequired,
+    imgSrc: PropTypes.string,
+    title: PropTypes.string.isRequired,
+    color: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+}
+
+CardInCart.defaultProps = {
+    imgSrc: "",
 }
 
 export default CardInCart;

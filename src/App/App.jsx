@@ -6,10 +6,7 @@ import Cards from '../pages/Cards';
 import Favourites from '../pages/Favourites';
 
 const App = () => {
-
-
     return (
-
         <>
             <Header />
             <main>

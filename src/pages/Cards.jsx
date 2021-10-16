@@ -7,7 +7,7 @@ import { getCardsList } from '../api/api';
 import { getDataFromLs } from '../getDataFromLs'
 
 
-const Cards = props => {
+const Cards = () => {
     const modalWindows = [{
         id: 1,
         closeButton: true,
@@ -134,6 +134,7 @@ const Cards = props => {
     else if (hasError) {
         content = (<div>Sorry, error</div>)
     } else {
+
         content = (
             <CardsList cards={cardsList}
                 onClickHandler={onClickHandler}
@@ -142,16 +143,16 @@ const Cards = props => {
                 favouritesCardsArr={cardsInFavorites} />
         )
     }
-
+    
     // LocalStorage
     useEffect(() => {
         localStorage.setItem('cardsInCart', JSON.stringify(cardsInCart));
-    }, [cardsInCart])
+    }, [cardsInCart]);
 
     useEffect(() => {
         localStorage.setItem('favouriteCards', JSON.stringify(cardsInFavorites));
-    }, [cardsInFavorites])
-    console.log(content);
+    }, [cardsInFavorites]);
+
     return (
         <div className={styles.app}>
             <div className={styles.container}>
