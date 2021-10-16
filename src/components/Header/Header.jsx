@@ -7,7 +7,7 @@ const Header = () => {
         <header className={styles.header}>
             <div className={styles.container}>
                 <nav className={styles.nav}>
-                    <img className={styles.logo} src="img/logo2.png" />
+                    <img className={styles.logo} src="img/logo2.png" alt="pets store logo"/>
                     <ul className={styles.navList}>
                         <li className={styles.item}><NavLink exact to="/" activeClassName={styles.active}>Home</NavLink></li>
                         <li className={styles.item}><NavLink exact to="/cart" activeClassName={styles.active}>Cart</NavLink></li>

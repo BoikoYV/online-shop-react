@@ -10,7 +10,7 @@ import CardsList from '../components/CardsList/CardsList';
 const Cards = () => {
     const [cardsList, setCardsList] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [hasError, setHasError] = useState(false);
+    const [hasError] = useState(false);
     const [currrentCardArticul, setCurrrentCardArticul] = useState(null);
     const [cardsInCart, setCardsInCart] = useState(getDataFromLs('cardsInCart'));
     const [cardsInFavorites, setCardsInFavorites] = useState(getDataFromLs('favouriteCards'));

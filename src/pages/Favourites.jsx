@@ -7,10 +7,10 @@ import modalStyles from '../components/Modal/Modal.module.css';
 import createModalButtons from '../components/Modal/createModalButtons';
 import styles from './Favourites.module.css';
 
-const Favourites = props => {
+const Favourites = () => {
     const [cardsList, setCardsList] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [hasError, setHasError] = useState(false);
+    const [hasError] = useState(false);
     const [cardsInFavorites, setCardsInFavorites] = useState(getDataFromLs('favouriteCards'));
     const [currrentCardArticul, setCurrrentCardArticul] = useState(null);
     const [cardsInCart, setCardsInCart] = useState(getDataFromLs('cardsInCart'));

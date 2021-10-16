@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './Card.module.css';
 import Button from '../Button/Button';
@@ -7,7 +7,7 @@ const NOIMGSRC = 'img/notfound.png';
 const Card = ({ title, price, articul, color, imgSrc, onClickHandler, changeFavouriteHandler, isFavourite }) => {
 
     const isFavouriteClass = isFavourite ? styles.isFavourite : '';
-    
+
     return (
         <li className={styles.item}>
             <img className={styles.itemImg} src={imgSrc ? imgSrc : NOIMGSRC} alt="bed for pets" />

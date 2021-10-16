@@ -10,7 +10,7 @@ import createModalButtons from '../components/Modal/createModalButtons';
 const Cart = () => {
     const [cardsList, setCardsList] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [hasError, setHasError] = useState(false);
+    const [hasError] = useState(false);
     const [currrentCardArticul, setCurrrentCardArticul] = useState(null);
     const [cardsInCart, setCardsInCart] = useState(getDataFromLs('cardsInCart'));
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -37,9 +37,10 @@ const Cart = () => {
         fetchCardsList();
     }, [])
 
-    const deleteFromCartHandler = () => {
-        const [currentArticul, ...rest] = cardsInCart;
-        setCardsInCart(rest);
+    const deleteFromCartHandler = (currentArticul) => {
+        // const [currrentCardArticul, ...rest] = cardsInCart;
+        const filtered  = cardsInCart.filter((articul) => articul !== currentArticul);
+        setCardsInCart(filtered);
         closeModalHandler();
     }
 
