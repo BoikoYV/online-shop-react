@@ -6,7 +6,7 @@ import styles from './CardsList.module.css';
 
 const CardsList = ({ cards, onClickHandler, changeFavouriteHandler, favouritesCardsArr }) => {
 
-    const cardsComponents = cards.cardsList.map(({ title, price, articul, color, imgSrc }) => {
+    const cardsComponents = cards.map(({ title, price, articul, color, imgSrc }) => {
         return (
             <Card key={articul}
                 title={title}
@@ -28,14 +28,14 @@ const CardsList = ({ cards, onClickHandler, changeFavouriteHandler, favouritesCa
 };
 
 CardsList.propTypes = {
-    cards: PropTypes.object.isRequired,
+    cards: PropTypes.array.isRequired,
     onClickHandler: PropTypes.func.isRequired,
     changeFavouriteHandler: PropTypes.func.isRequired,
     favouritesCardsArr: PropTypes.array
 };
 
 CardsList.defaultProps = {
-    cards: {},
+    cards: [],
     favouritesCardsArr: []
 };
 

@@ -74,7 +74,7 @@ const Cards = () => {
     } else {
 
         content = (
-            <CardsList cards={cardsList}
+            <CardsList cards={cardsList.cardsList}
                 onClickHandler={onClickHandler}
                 changeFavouriteHandler={changeFavouriteHandler}
                 favouritesCardsArr={cardsInFavorites} />
