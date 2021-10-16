@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import styles from './Cart.module.css';
-import { getDataFromLs } from '../getDataFromLs';
 import { getCardsList } from '../api/api';
+import { getDataFromLs } from '../getDataFromLs';
+import styles from './Cart.module.css';
 import CartList from '../components/CartList/CartList';
-import modalWindows from '../components/Modal/modals'
 import Modal from '../components/Modal/Modal';
+import modalStyles from '../components/Modal/Modal.module.css';
+import createModalButtons from '../components/Modal/createModalButtons';
 
 const Cart = () => {
-    const [modals, setModals] = useState(modalWindows);
     const [cardsList, setCardsList] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [hasError, setHasError] = useState(false);
+    const [currrentCardArticul, setCurrrentCardArticul] = useState(null);
     const [cardsInCart, setCardsInCart] = useState(getDataFromLs('cardsInCart'));
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     // LocalStorage
     useEffect(() => {
@@ -35,11 +37,23 @@ const Cart = () => {
         fetchCardsList();
     }, [])
 
-    const deleteFromCartHandler = (articulNum) => {
-
-        const [articul, ...rest] = cardsInCart;
+    const deleteFromCartHandler = () => {
+        const [currentArticul, ...rest] = cardsInCart;
         setCardsInCart(rest);
+        closeModalHandler();
     }
+
+    // Modals
+    const onClickHandler = (articul) => {
+        setCurrrentCardArticul(articul);
+        setIsModalOpen(true);
+    }
+
+    const closeModalHandler = () => {
+        setIsModalOpen(false);
+    }
+
+    const classHide = !isModalOpen ? modalStyles.hide : '';
 
     let content;
     if (isLoading) {
@@ -52,13 +66,11 @@ const Cart = () => {
             content = <p className={styles.noItemsTitle}>No items in cart</p>;
         } else {
             const filteredCards = cardsList.cardsList.filter(({ articul }) => cardsInCart.includes(articul));
-            content = (<CartList 
-                cards={filteredCards} 
-                deleteFromCartHandler={deleteFromCartHandler} />)
+            content = (<CartList
+                cards={filteredCards}
+                onClickHandler={onClickHandler} />)
         }
     }
-
-
 
     return (
         <div className={styles.cartSection}>
@@ -70,7 +82,15 @@ const Cart = () => {
                     <li>Count</li>
                     <li>Price</li>
                 </ul>
+                <Modal
+                    header='Do you want to delete this product ?'
+                    closeButton={true}
+                    text='This product will be deleted from the cart'
+                    isShown={isModalOpen}
+                    actions={createModalButtons('Delete', 'Cancel', deleteFromCartHandler, closeModalHandler, currrentCardArticul)}
+                    closeModalHandler={closeModalHandler} />
                 {content}
+                <div onClick={closeModalHandler} className={`${modalStyles.overlay} ${classHide}`}></div>
             </div>
         </div>
     );

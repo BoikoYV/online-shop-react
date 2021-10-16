@@ -1,22 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import Modal from '../components/Modal/Modal';
-import CardsList from '../components/CardsList/CardsList';
 import styles from '../App/App.module.css';
 import { getCardsList } from '../api/api';
 import { getDataFromLs } from '../getDataFromLs';
+import Modal from '../components/Modal/Modal';
 import modalStyles from '../components/Modal/Modal.module.css';
 import createModalButtons from '../components/Modal/createModalButtons';
+import CardsList from '../components/CardsList/CardsList';
 
 const Cards = () => {
-
-    // const [modals, setModals] = useState(modalWindows);
     const [cardsList, setCardsList] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [hasError, setHasError] = useState(false);
     const [currrentCardArticul, setCurrrentCardArticul] = useState(null);
     const [cardsInCart, setCardsInCart] = useState(getDataFromLs('cardsInCart'));
     const [cardsInFavorites, setCardsInFavorites] = useState(getDataFromLs('favouriteCards'));
-
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const fetchCardsList = () => {

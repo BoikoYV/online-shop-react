@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styles from './CardInCart.module.css'
 const NOIMGSRC = 'img/notfound.png';
 
-const CardInCart = ({ articul, imgSrc, title, color, price, deleteFromCartHandler }) => {
+const CardInCart = ({ articul, imgSrc, title, color, price, onClickHandler }) => {
 
     return (
         <li className={styles.item}>
@@ -15,7 +15,7 @@ const CardInCart = ({ articul, imgSrc, title, color, price, deleteFromCartHandle
             </div>
             <p className={styles.count}>{1}</p>
             <p className={styles.price}>{price} UAH</p>
-            <button className={styles.deleteItemBtn} onClick={()=>{deleteFromCartHandler(articul)}}>
+            <button className={styles.deleteItemBtn} onClick={() => { onClickHandler(articul) }}>
                 <svg className={styles.trashIcon} enableBackground="new 0 0 32 32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
                     <g fill="none" stroke="#000" strokeWidth="2">
                         <path d="m23 27h-12c-1.1 0-2-.9-2-2v-17h16v17c0 1.1-.9 2-2 2z" />
@@ -37,6 +37,7 @@ CardInCart.propTypes = {
     title: PropTypes.string.isRequired,
     color: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
+    onClickHandler: PropTypes.func.isRequired
 }
 
 CardInCart.defaultProps = {

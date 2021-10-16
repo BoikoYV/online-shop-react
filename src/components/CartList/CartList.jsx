@@ -2,8 +2,7 @@ import PropTypes from 'prop-types';
 import styles from './CartList.module.css';
 import CardInCart from '../CardInCart/CardInCart';
 
-const CartList = ({ cards, deleteFromCartHandler }) => {
-    console.log(cards);
+const CartList = ({ cards, onClickHandler }) => {
     let cardsComponents = cards.map(({ title, price, articul, color, imgSrc }) => {
         return (
             <CardInCart key={articul}
@@ -12,7 +11,7 @@ const CartList = ({ cards, deleteFromCartHandler }) => {
                 articul={articul}
                 color={color}
                 imgSrc={imgSrc}
-                deleteFromCartHandler={deleteFromCartHandler} />
+                onClickHandler={onClickHandler} />
         )
     });
 
@@ -24,9 +23,12 @@ const CartList = ({ cards, deleteFromCartHandler }) => {
 };
 
 CartList.propTypes = {
-    cards: PropTypes.array
+    cards: PropTypes.array,
+    onClickHandler: PropTypes.func.isRequired,
 }
+
 CartList.defaultProps = {
     cards: []
 }
+
 export default CartList;
