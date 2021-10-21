@@ -1,0 +1,69 @@
+.item {
+    display: grid;
+    grid-template-columns: 120px repeat(4, 1fr);
+    grid-column-gap: 3%;
+    column-gap: 3%;
+    border-radius: 15px;
+    box-shadow: 0px 0px 10px 1px hsl(0deg 0% 82% / 49%);
+    min-height: 80px;
+    padding: 15px;
+    align-items: center;
+}
+
+.img {
+    width: 110px;
+    max-width: 100%;
+    height: 110px;
+    object-fit: cover;
+    align-self: center;
+    justify-self: center;
+    border-radius: 15px;
+    display: block;
+}
+
+p {
+    margin-top: 0;
+}
+
+.itemInfo {}
+
+.itemTitle {
+    margin-top: 0;
+    font-weight: 500;
+}
+
+.color, .articul {
+    color: #686868;
+}
+
+.color {}
+
+.articul {}
+
+.price {
+    font-weight: 500;
+    /* color: #021973; */
+}
+
+.deleteItemBtn {
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    justify-self: center;
+}
+
+.trashIcon {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+    transition: .5s;
+}
+
+.deleteItemBtn:hover g {
+    transition: .5s;
+    stroke: rgb(245, 66, 66);
+}
+
+.count {
+    /* justify-self: center; */
+}

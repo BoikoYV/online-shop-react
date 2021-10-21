@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './Card.module.css';
 import Button from '../Button/Button';
 const NOIMGSRC = 'img/notfound.png';
 
-const Card = ({ title, price, articul, color, imgSrc, onClickHandler, idModal, changeFavouriteHandler, isFavourite }) => {
+const Card = ({ title, price, articul, color, imgSrc, onClickHandler, changeFavouriteHandler, isFavourite }) => {
 
     const isFavouriteClass = isFavourite ? styles.isFavourite : '';
-    
+
     return (
         <li className={styles.item}>
             <img className={styles.itemImg} src={imgSrc ? imgSrc : NOIMGSRC} alt="bed for pets" />
@@ -27,7 +27,7 @@ const Card = ({ title, price, articul, color, imgSrc, onClickHandler, idModal, c
                 </button>
 
                 <p className={styles.cardPrice}>{price} UAH</p>
-                <Button text='Add to card' onClickHandler={() => onClickHandler(idModal, articul)} />
+                <Button text='Add to card' onClickHandler={() => onClickHandler(articul)} />
             </div>
         </li>
     );
@@ -40,14 +40,12 @@ Card.propTypes = {
     color: PropTypes.string.isRequired,
     imgSrc: PropTypes.string,
     onClickHandler: PropTypes.func.isRequired,
-    idModal: PropTypes.number,
     changeFavouriteHandler: PropTypes.func.isRequired,
     isFavourite: PropTypes.bool
 
 };
 
 Card.defaultProps = {
-    imgSrc: "",
-    idModal: 1
+    imgSrc: ""
 };
 export default Card;

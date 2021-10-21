@@ -2,10 +2,10 @@ import React from 'react';
 import styles from './Button.module.css';
 import PropTypes from 'prop-types';
 
-const Button = ({ text, onClickHandler, idModal }) => {
+const Button = ({ text, onClickHandler}) => {
     return (
         <button className={styles.btn}
-            onClick={() => onClickHandler(idModal)}>
+            onClick={() => onClickHandler()}>
             {text}
         </button>
     );
@@ -13,13 +13,9 @@ const Button = ({ text, onClickHandler, idModal }) => {
 
 Button.propTypes = {
     text: PropTypes.string.isRequired,
-    onClickHandler: PropTypes.func.isRequired,
-    idModal: PropTypes.number
+    onClickHandler: PropTypes.func.isRequired
 };
 
-Button.defaultProps = {
-    idModal: 1
-}
 
 
 export default Button;

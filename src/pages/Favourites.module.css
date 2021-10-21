@@ -1,0 +1,23 @@
+.favoritesSection {
+    padding: 30px 0;
+}
+
+.favoritesTitle {
+    margin-bottom: 40px;
+    font-family: "Alumatica", sans-serif;
+    color: #667ad1;
+}
+
+.noItemsTitle {
+    font-weight: 500;
+    font-family: "Alumatica", sans-serif;
+    font-size: 20px;
+    color: #667ad1;
+    margin-top: 40px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 10px;
+}

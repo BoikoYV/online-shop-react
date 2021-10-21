@@ -51,7 +51,7 @@
     justify-content: center;
 }
 
-.btn {
+.btnBox button {
     background-color: #9b8cf1;
     padding: 15px;
     border-radius: 15px;
@@ -64,14 +64,10 @@
     background-color: #6a52ee;
 }
 
-.okBtn {
-    margin-right: 20px;
-}
-
 .overlay {
     z-index: 1;
     width: 100%;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
