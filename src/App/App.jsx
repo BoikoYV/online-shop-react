@@ -5,6 +5,7 @@ import Cart from '../pages/Cart/Cart';
 import Cards from '../pages/Catalog';
 import Favourites from '../pages/Favourites/Favourites';
 
+
 const App = () => {
     return (
         <>

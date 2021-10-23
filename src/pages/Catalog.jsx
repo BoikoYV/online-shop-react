@@ -2,30 +2,28 @@ import React, { useState, useEffect } from 'react';
 import styles from '../App/App.module.css';
 import { fetchCardsList } from '../store/cards/actions'
 import { getDataFromLs } from '../getDataFromLs';
-import Modal from '../components/Modal/Modal';
-import modalStyles from '../components/Modal/Modal.module.css';
 import createModalButtons from '../components/Modal/createModalButtons';
 import CardsList from '../components/CardsList/CardsList';
+import { ModalRoot } from '../components/Modal/ModalRoot';
+import { useDispatch, useSelector } from 'react-redux';
+import { ADD_TO_CART, DELETE_FROM_CART } from '../store/modal/types';
 
-import { useDispatch, useSelector } from 'react-redux'
 
 const Cards = () => {
 
-    const isLoading = useSelector(state => {
-        console.log(state);
-        return state.isLoading
-    });
+    const isLoading = useSelector(state => state.cards.isLoading);
+    const cardsList = useSelector(state => state.cards.cards);
+    const currrentCardArticul = useSelector(state => state.currrentCardArticul);
     const hasError = useSelector(state => state.hasError);
-    const cardsList = useSelector(state => state.cards);
     const dispatch = useDispatch();
 
-    const [currrentCardArticul, setCurrrentCardArticul] = useState(null);
     const [cardsInCart, setCardsInCart] = useState(getDataFromLs('cardsInCart'));
     const [cardsInFavorites, setCardsInFavorites] = useState(getDataFromLs('favouriteCards'));
-    const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(() => {
         dispatch(fetchCardsList());
+        
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     // Cart
@@ -38,16 +36,22 @@ const Cards = () => {
 
     // Modals
     const onClickHandler = (articul) => {
-        setCurrrentCardArticul(articul);
-        setIsModalOpen(true);
+        dispatch({
+            type: 'SHOW_MODAL',
+            modalType: ADD_TO_CART,
+            modalProps: { currrentCardArticul: articul }
+        });
+        dispatch({
+            type: 'SET_CURRENT_ARTICUL',
+            payload: articul
+        });
     }
 
     const closeModalHandler = () => {
-        setIsModalOpen(false);
+        dispatch({
+            type: 'HIDE_MODAL'
+        })
     }
-
-    const classHide = !isModalOpen ? modalStyles.hide : '';
-
 
     // Favourites
     const changeFavouriteHandler = (articul) => {
@@ -75,7 +79,6 @@ const Cards = () => {
         )
     }
 
-
     // LocalStorage
     useEffect(() => {
         localStorage.setItem('cardsInCart', JSON.stringify(cardsInCart));
@@ -84,19 +87,17 @@ const Cards = () => {
     useEffect(() => {
         localStorage.setItem('favouriteCards', JSON.stringify(cardsInFavorites));
     }, [cardsInFavorites]);
+
     return (
         <div className={styles.app}>
             <div className={styles.container}>
                 <div className={styles.appInner}>
-                    <Modal
-                        header='Do you want to add this product to your cart?'
-                        closeButton={true}
-                        text='This item will be available in the cart'
-                        isShown={isModalOpen}
-                        actions={createModalButtons('Ok', 'Cancel', addCardsToCartHandler, closeModalHandler, currrentCardArticul)}
-                        closeModalHandler={() => { closeModalHandler() }} />
+                    <ModalRoot modalType={ADD_TO_CART}
+                        modalProps={{
+                            actions: createModalButtons('Ok', 'Cancel', addCardsToCartHandler, closeModalHandler, currrentCardArticul),
+                            closeModalHandler: () => { closeModalHandler() }
+                        }} />
                     {content}
-                    <div onClick={() => { closeModalHandler() }} className={`${modalStyles.overlay} ${classHide}`}></div>
                 </div>
             </div>
         </div>
