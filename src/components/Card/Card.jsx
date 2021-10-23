@@ -46,6 +46,7 @@ Card.propTypes = {
 };
 
 Card.defaultProps = {
-    imgSrc: ""
+    imgSrc: "",
+    isFavourite: false
 };
 export default Card;

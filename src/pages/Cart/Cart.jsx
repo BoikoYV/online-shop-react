@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { getCardsList } from '../api/api';
-import { getDataFromLs } from '../getDataFromLs';
+import { getCardsList } from '../../api/getCardsList';
+import { getDataFromLs } from '../../getDataFromLs';
 import styles from './Cart.module.css';
-import CartList from '../components/CartList/CartList';
-import Modal from '../components/Modal/Modal';
-import modalStyles from '../components/Modal/Modal.module.css';
-import createModalButtons from '../components/Modal/createModalButtons';
+import CartList from '../../components/CartList/CartList';
+import Modal from '../../components/Modal/Modal';
+import modalStyles from '../../components/Modal/Modal.module.css';
+import createModalButtons from '../../components/Modal/createModalButtons';
 
 const Cart = () => {
     const [cardsList, setCardsList] = useState([]);

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { getCardsList } from '../api/api';
-import { getDataFromLs } from '../getDataFromLs';
-import CardsList from '../components/CardsList/CardsList';
-import Modal from '../components/Modal/Modal';
-import modalStyles from '../components/Modal/Modal.module.css';
-import createModalButtons from '../components/Modal/createModalButtons';
+import { getCardsList } from '../../api/getCardsList';
+import { getDataFromLs } from '../../getDataFromLs';
+import CardsList from '../../components/CardsList/CardsList';
+import Modal from '../../components/Modal/Modal';
+import modalStyles from '../../components/Modal/Modal.module.css';
+import createModalButtons from '../../components/Modal/createModalButtons';
 import styles from './Favourites.module.css';
 
 const Favourites = () => {

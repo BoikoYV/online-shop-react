@@ -5,7 +5,6 @@ import styles from './CardsList.module.css';
 
 
 const CardsList = ({ cards, onClickHandler, changeFavouriteHandler, favouritesCardsArr }) => {
-
     const cardsComponents = cards.map(({ title, price, articul, color, imgSrc }) => {
         return (
             <Card key={articul}
@@ -14,7 +13,7 @@ const CardsList = ({ cards, onClickHandler, changeFavouriteHandler, favouritesCa
                 articul={articul}
                 color={color}
                 imgSrc={imgSrc}
-                isFavourite={favouritesCardsArr.includes(articul) ? true : false}
+                isFavourite={favouritesCardsArr.includes(articul)}
                 onClickHandler={onClickHandler}
                 changeFavouriteHandler={changeFavouriteHandler} />
         )

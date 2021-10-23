@@ -1,9 +1,9 @@
 import React from 'react';
 import { Switch, Route } from "react-router-dom";
 import Header from '../components/Header/Header';
-import Cart from '../pages/Cart';
-import Cards from '../pages/Cards';
-import Favourites from '../pages/Favourites';
+import Cart from '../pages/Cart/Cart';
+import Cards from '../pages/Catalog';
+import Favourites from '../pages/Favourites/Favourites';
 
 const App = () => {
     return (

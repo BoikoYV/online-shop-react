@@ -1,36 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../App/App.module.css';
-import { getCardsList } from '../api/api';
+import { fetchCardsList } from '../store/cards/actions'
 import { getDataFromLs } from '../getDataFromLs';
 import Modal from '../components/Modal/Modal';
 import modalStyles from '../components/Modal/Modal.module.css';
 import createModalButtons from '../components/Modal/createModalButtons';
 import CardsList from '../components/CardsList/CardsList';
 
+import { useDispatch, useSelector } from 'react-redux'
+
 const Cards = () => {
-    const [cardsList, setCardsList] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
-    const [hasError] = useState(false);
+
+    const isLoading = useSelector(state => {
+        console.log(state);
+        return state.isLoading
+    });
+    const hasError = useSelector(state => state.hasError);
+    const cardsList = useSelector(state => state.cards);
+    const dispatch = useDispatch();
+
     const [currrentCardArticul, setCurrrentCardArticul] = useState(null);
     const [cardsInCart, setCardsInCart] = useState(getDataFromLs('cardsInCart'));
     const [cardsInFavorites, setCardsInFavorites] = useState(getDataFromLs('favouriteCards'));
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const fetchCardsList = () => {
-        getCardsList()
-            .then(cards => {
-                setCardsList(cards);
-            })
-            .catch(err => {
-                console.error(err.message)
-            })
-            .finally(() => {
-                setIsLoading(false);
-            })
-    };
-
     useEffect(() => {
-        fetchCardsList();
+        dispatch(fetchCardsList());
     }, []);
 
     // Cart
@@ -72,14 +67,14 @@ const Cards = () => {
     else if (hasError) {
         content = (<div>Sorry, error</div>)
     } else {
-
         content = (
-            <CardsList cards={cardsList.cardsList}
+            <CardsList cards={cardsList}
                 onClickHandler={onClickHandler}
                 changeFavouriteHandler={changeFavouriteHandler}
                 favouritesCardsArr={cardsInFavorites} />
         )
     }
+
 
     // LocalStorage
     useEffect(() => {
@@ -89,7 +84,6 @@ const Cards = () => {
     useEffect(() => {
         localStorage.setItem('favouriteCards', JSON.stringify(cardsInFavorites));
     }, [cardsInFavorites]);
-
     return (
         <div className={styles.app}>
             <div className={styles.container}>
