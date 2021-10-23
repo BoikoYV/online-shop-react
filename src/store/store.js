@@ -11,7 +11,29 @@ const rootReducer = combineReducers({
     favourites: favouritesReducer,
     currrentCardArticul: currentArticulReducer,
 })
+
+const favoriteSyncMiddleware = store => next => action => {
+    const result = next(action)
+    if (['ADD_FAVOURITES', 'REMOVE_FAVOURITES'].includes(action.type)) {
+        console.log('favorite');
+        const { favourites } = store.getState()
+        localStorage.setItem('favourites', JSON.stringify(favourites))
+    }
+    return result
+}
+
+let initialState = {};
+const favouritesFromLS = localStorage.getItem('favourites')
+
+if (favouritesFromLS) {
+    try {
+        initialState = { ...initialState, favourites: JSON.parse(favouritesFromLS) }
+    } catch (err) {
+        console.error(err);
+    }
+}
+
 const devTools = window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (args) => args
 
-const store = createStore(rootReducer, compose(applyMiddleware(thunk), devTools));
+const store = createStore(rootReducer, initialState, compose(applyMiddleware(thunk, favoriteSyncMiddleware), devTools));
 export default store;

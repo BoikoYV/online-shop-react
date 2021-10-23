@@ -5,7 +5,6 @@ import Button from '../Button/Button';
 const NOIMGSRC = 'img/notfound.png';
 
 const Card = ({ title, price, articul, color, imgSrc, onClickHandler, changeFavouriteHandler, isFavourite }) => {
-
     const isFavouriteClass = isFavourite ? styles.isFavourite : '';
 
     return (

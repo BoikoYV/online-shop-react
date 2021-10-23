@@ -1,8 +1,15 @@
-import {ADD_FAVOURITES} from './types';
+import { ADD_FAVOURITES, REMOVE_FAVOURITES } from './types';
 
-export const addToFavourites = (card) => {
+export const addToFavourites = (articul) => {
     return {
         type: ADD_FAVOURITES,
-        payload: card
+        payload: articul
+    }
+}
+
+export const removeFavourites = (articul) => {
+    return {
+        type: REMOVE_FAVOURITES,
+        payload: articul
     }
 }

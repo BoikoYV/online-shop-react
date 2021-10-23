@@ -7,22 +7,24 @@ import CardsList from '../components/CardsList/CardsList';
 import { ModalRoot } from '../components/Modal/ModalRoot';
 import { useDispatch, useSelector } from 'react-redux';
 import { ADD_TO_CART, DELETE_FROM_CART } from '../store/modal/types';
+import { addToFavourites, removeFavourites } from '../store/favourites/actions';
 
 
 const Cards = () => {
 
-    const isLoading = useSelector(state => state.cards.isLoading);
-    const cardsList = useSelector(state => state.cards.cards);
-    const currrentCardArticul = useSelector(state => state.currrentCardArticul);
-    const hasError = useSelector(state => state.hasError);
+    const isLoading = useSelector(({ cards }) => cards.isLoading);
+    const cardsList = useSelector(({ cards }) => cards.cards);
+    const currrentCardArticul = useSelector(({ currrentCardArticul }) => currrentCardArticul);
+    const cardsInFavorites = useSelector(({ favourites }) => favourites);
+
+    const hasError = useSelector(({ hasError }) => hasError);
     const dispatch = useDispatch();
 
     const [cardsInCart, setCardsInCart] = useState(getDataFromLs('cardsInCart'));
-    const [cardsInFavorites, setCardsInFavorites] = useState(getDataFromLs('favouriteCards'));
+    // const [cardsInFavorites, setCardsInFavorites] = useState(getDataFromLs('favouriteCards'));
 
     useEffect(() => {
         dispatch(fetchCardsList());
-        
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -56,13 +58,11 @@ const Cards = () => {
     // Favourites
     const changeFavouriteHandler = (articul) => {
         if (cardsInFavorites.includes(articul)) {
-            const favourites = cardsInFavorites.filter((articulNum) => articulNum !== articul)
-            setCardsInFavorites(favourites);
+            dispatch(removeFavourites(articul));
         } else {
-            setCardsInFavorites([...cardsInFavorites, articul]);
+            dispatch(addToFavourites(articul));
         };
     };
-
 
     let content;
     if (isLoading) {
@@ -83,10 +83,6 @@ const Cards = () => {
     useEffect(() => {
         localStorage.setItem('cardsInCart', JSON.stringify(cardsInCart));
     }, [cardsInCart]);
-
-    useEffect(() => {
-        localStorage.setItem('favouriteCards', JSON.stringify(cardsInFavorites));
-    }, [cardsInFavorites]);
 
     return (
         <div className={styles.app}>
