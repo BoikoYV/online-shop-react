@@ -1,6 +1,6 @@
 ### Online Store of goods for pets 🐶🏠
 
-#### React (React Roating, React Hooks), Redux
+#### React (React Roating, React Hooks), Redux (Thunk)
 
 
 *📝The project is still in development*
@@ -20,6 +20,7 @@ Online store of houses for pets consists of 3 pages:
 #### 📘Functional:
 - interaction with the cart (adding and removing products);
 - interaction with favorites (adding and removing products);
+- synchronization of products in the cart, favorites with the Local storage;
 - clarifying modal windows before adding and removing products;
 - showing skeleton loader using `react-content-loader`;
 - substitute the default image if the product doesn`t have photo;
