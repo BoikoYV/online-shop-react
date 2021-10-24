@@ -10,7 +10,7 @@ import { addToFavourites, removeFavourites } from '../store/favourites/actions';
 import { addToCart } from '../store/cart/actions';
 import { setModalShow, setModalClose } from '../store/modal/actions';
 import { setCurrentArticul } from '../store/currentCardArticul/actions';
-
+import Loader from '../components/Loader/Loader';
 const Cards = () => {
 
     const isLoading = useSelector(({ cards }) => cards.isLoading);
@@ -54,10 +54,11 @@ const Cards = () => {
 
     let content;
     if (isLoading) {
-        content = (<p>Loading</p>);
+        content = (<Loader />)
     }
     else if (hasError) {
         content = (<div>Sorry, error</div>)
+
     } else {
         content = (
             <CardsList cards={cardsList}

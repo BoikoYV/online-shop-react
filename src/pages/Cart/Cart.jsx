@@ -9,6 +9,7 @@ import { REMOVE_FROM_CART } from '../../store/modal/types';
 import { setModalShow, setModalClose } from '../../store/modal/actions';
 import { ModalRoot } from '../../components/Modal/ModalRoot';
 import { setCurrentArticul } from '../../store/currentCardArticul/actions';
+import Loader from '../../components/Loader/Loader';
 
 const Cart = () => {
     const isLoading = useSelector(({ cards }) => cards.isLoading);
@@ -40,7 +41,7 @@ const Cart = () => {
 
     let content;
     if (isLoading) {
-        content = (<p>Loading</p>);
+        content = (<Loader />)
     } else if (hasError) {
         content = (<div>Sorry, error</div>)
     }

@@ -10,6 +10,7 @@ import { setModalShow, setModalClose } from '../../store/modal/actions';
 import { setCurrentArticul } from '../../store/currentCardArticul/actions';
 import { ModalRoot } from '../../components/Modal/ModalRoot';
 import { addToFavourites, removeFavourites } from '../../store/favourites/actions';
+import Loader from '../../components/Loader/Loader';
 
 const Favourites = () => {
     const isLoading = useSelector(({ cards }) => cards.isLoading);
@@ -51,7 +52,7 @@ const Favourites = () => {
 
     let content;
     if (isLoading) {
-        content = (<p>Loading</p>);
+        content = (<Loader />)
     } else if (hasError) {
         content = (<div>Sorry, error</div>)
     }
