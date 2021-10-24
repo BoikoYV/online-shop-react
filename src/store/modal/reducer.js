@@ -1,6 +1,10 @@
 const initialState = {
     modalType: null,
-    modalProps: {},
+    modalProps: {
+        closeButton: true,
+        header: null,
+        text: null
+    },
     modalIsOpen: false,
 }
 
@@ -9,7 +13,7 @@ export const modalReducer = (state = initialState, action) => {
         case 'SHOW_MODAL':
             return {
                 modalType: action.modalType,
-                modalProps: action.modalProps,
+                modalProps: { ...initialState.modalProps, ...action.payload },
                 modalIsOpen: true
             }
         case 'HIDE_MODAL':

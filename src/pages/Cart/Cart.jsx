@@ -1,60 +1,42 @@
-import React, { useState, useEffect } from 'react';
-import { getCardsList } from '../../api/getCardsList';
-import { getDataFromLs } from '../../getDataFromLs';
+import React, { useEffect } from 'react';
+import { fetchCardsList } from '../../store/cards/actions'
 import styles from './Cart.module.css';
 import CartList from '../../components/CartList/CartList';
-import Modal from '../../components/Modal/Modal';
-import modalStyles from '../../components/Modal/Modal.module.css';
-import createModalButtons from '../../components/Modal/createModalButtons';
+import createModalButtons from '../../components/Modal/basicModal/createModalButtons';
+import { useDispatch, useSelector } from 'react-redux';
+import { removeFromCart } from '../../store/cart/actions';
+import { REMOVE_FROM_CART } from '../../store/modal/types';
+import { setModalShow, setModalClose } from '../../store/modal/actions';
+import { ModalRoot } from '../../components/Modal/ModalRoot';
+import { setCurrentArticul } from '../../store/currentCardArticul/actions';
 
 const Cart = () => {
-    const [cardsList, setCardsList] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
-    const [hasError] = useState(false);
-    const [currrentCardArticul, setCurrrentCardArticul] = useState(null);
-    const [cardsInCart, setCardsInCart] = useState(getDataFromLs('cardsInCart'));
-    const [isModalOpen, setIsModalOpen] = useState(false);
-
-    // LocalStorage
-    useEffect(() => {
-        localStorage.setItem('cardsInCart', JSON.stringify(cardsInCart));
-    }, [cardsInCart])
-
-    const fetchCardsList = () => {
-        getCardsList()
-            .then(cards => {
-                setCardsList(cards);
-            })
-            .catch(err => {
-                console.error(err.message)
-            })
-            .finally(() => {
-                setIsLoading(false);
-            })
-    }
+    const isLoading = useSelector(({ cards }) => cards.isLoading);
+    const cardsList = useSelector(({ cards }) => cards.cards);
+    const currrentCardArticul = useSelector(({ currrentCardArticul }) => currrentCardArticul);
+    const cardsInCart = useSelector(({ cardsInCart }) => cardsInCart);
+    const hasError = useSelector(({ hasError }) => hasError);
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        fetchCardsList();
-    }, [])
+        dispatch(fetchCardsList());
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
-    const deleteFromCartHandler = (currentArticul) => {
-        // const [currrentCardArticul, ...rest] = cardsInCart;
-        const filtered  = cardsInCart.filter((articul) => articul !== currentArticul);
-        setCardsInCart(filtered);
+    const deleteFromCartHandler = (articul) => {
+        dispatch(removeFromCart(articul));
         closeModalHandler();
     }
 
     // Modals
     const onClickHandler = (articul) => {
-        setCurrrentCardArticul(articul);
-        setIsModalOpen(true);
+        dispatch(setModalShow(REMOVE_FROM_CART, { articul }))
+        dispatch(setCurrentArticul(articul));
     }
 
     const closeModalHandler = () => {
-        setIsModalOpen(false);
+        dispatch(setModalClose(REMOVE_FROM_CART));
     }
-
-    const classHide = !isModalOpen ? modalStyles.hide : '';
 
     let content;
     if (isLoading) {
@@ -66,7 +48,9 @@ const Cart = () => {
         if (cardsInCart.length < 1) {
             content = <p className={styles.noItemsTitle}>No items in cart</p>;
         } else {
-            const filteredCards = cardsList.cardsList.filter(({ articul }) => cardsInCart.includes(articul));
+            const filteredCards = cardsList.filter(({ articul }) => {
+                return cardsInCart.includes(articul)
+            });
             content = (<CartList
                 cards={filteredCards}
                 onClickHandler={onClickHandler} />)
@@ -83,15 +67,15 @@ const Cart = () => {
                     <li>Count</li>
                     <li>Price</li>
                 </ul>
-                <Modal
-                    header='Do you want to delete this product ?'
-                    closeButton={true}
-                    text='This product will be deleted from the cart'
-                    isShown={isModalOpen}
-                    actions={createModalButtons('Delete', 'Cancel', deleteFromCartHandler, closeModalHandler, currrentCardArticul)}
-                    closeModalHandler={closeModalHandler} />
+                <ModalRoot modalType={REMOVE_FROM_CART}
+                    modalProps={{
+                        actions: createModalButtons('Delete', 'Cancel', deleteFromCartHandler, closeModalHandler, currrentCardArticul.currentArticul),
+                        closeModalHandler: () => { closeModalHandler() },
+                        header: 'Do you want to delete this product ?',
+                        text: 'This product will be deleted from the cart',
+                        closeButton: true,
+                    }} />
                 {content}
-                <div onClick={closeModalHandler} className={`${modalStyles.overlay} ${classHide}`}></div>
             </div>
         </div>
     );

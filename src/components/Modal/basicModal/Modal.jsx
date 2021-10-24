@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styles from './Modal.module.css'
+import styles from './Modal.module.css';
 
 const Modal = ({ isShown, header, text, actions, closeButton, closeModalHandler }) => {
     const classHide = !isShown ? styles.hide : '';

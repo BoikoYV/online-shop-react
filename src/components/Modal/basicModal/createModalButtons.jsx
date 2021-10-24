@@ -1,5 +1,5 @@
 import modalStyles from './Modal.module.css';
-import Button from '../Button/Button';
+import Button from '../../Button/Button';
 
 const createModalButtons = (text1, text2, okBtnFunc, cancelBtnFunc, currentArticul) => {
     return (

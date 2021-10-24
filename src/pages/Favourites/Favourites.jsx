@@ -1,72 +1,51 @@
-import React, { useState, useEffect } from 'react';
-import { getCardsList } from '../../api/getCardsList';
-import { getDataFromLs } from '../../getDataFromLs';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import CardsList from '../../components/CardsList/CardsList';
-import Modal from '../../components/Modal/Modal';
-import modalStyles from '../../components/Modal/Modal.module.css';
-import createModalButtons from '../../components/Modal/createModalButtons';
+import createModalButtons from '../../components/Modal/basicModal/createModalButtons';
 import styles from './Favourites.module.css';
+import { fetchCardsList } from '../../store/cards/actions'
+import { addToCart } from '../../store/cart/actions';
+import { ADD_TO_CART } from '../../store/modal/types';
+import { setModalShow, setModalClose } from '../../store/modal/actions';
+import { setCurrentArticul } from '../../store/currentCardArticul/actions';
+import { ModalRoot } from '../../components/Modal/ModalRoot';
+import { addToFavourites, removeFavourites } from '../../store/favourites/actions';
 
 const Favourites = () => {
-    const [cardsList, setCardsList] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
-    const [hasError] = useState(false);
-    const [cardsInFavorites, setCardsInFavorites] = useState(getDataFromLs('favouriteCards'));
-    const [currrentCardArticul, setCurrrentCardArticul] = useState(null);
-    const [cardsInCart, setCardsInCart] = useState(getDataFromLs('cardsInCart'));
-    const [isModalOpen, setIsModalOpen] = useState(false);
-
-    // LocalStorage
-    useEffect(() => {
-        localStorage.setItem('cardsInCart', JSON.stringify(cardsInCart));
-    }, [cardsInCart])
+    const isLoading = useSelector(({ cards }) => cards.isLoading);
+    const cardsList = useSelector(({ cards }) => cards.cards);
+    const currrentCardArticul = useSelector(({ currrentCardArticul }) => currrentCardArticul);
+    const cardsInFavorites = useSelector(({ favourites }) => favourites);
+    const hasError = useSelector(({ hasError }) => hasError);
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        localStorage.setItem('favouriteCards', JSON.stringify(cardsInFavorites));
-    }, [cardsInFavorites]);
-
-    const fetchCardsList = () => {
-        getCardsList()
-            .then(cards => {
-                setCardsList(cards);
-            })
-            .catch(err => {
-                console.error(err.message)
-            })
-            .finally(() => {
-                setIsLoading(false);
-            })
-    }
-
-    useEffect(() => {
-        fetchCardsList();
+        dispatch(fetchCardsList());
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     // Cart
-    const addCardsToCartHandler = (articulName) => {
-        if (!cardsInCart.includes(articulName)) {
-            setCardsInCart([...cardsInCart, articulName]);
-        }
+    const addCardsToCartHandler = (articul) => {
+        dispatch(addToCart(articul));
         closeModalHandler();
     }
-    
-    // Modal
+
+    // Modals
     const onClickHandler = (articul) => {
-        setCurrrentCardArticul(articul);
-        setIsModalOpen(true);
+        dispatch(setModalShow(ADD_TO_CART))
+        dispatch(setCurrentArticul(articul));
     }
+
     const closeModalHandler = () => {
-        setIsModalOpen(false);
+        dispatch(setModalClose(ADD_TO_CART))
     }
-    const classHide = !isModalOpen ? modalStyles.hide : '';
 
     // Favourites
     const changeFavouriteHandler = (articul) => {
         if (cardsInFavorites.includes(articul)) {
-            const favourites = cardsInFavorites.filter((articulNum) => articulNum !== articul)
-            setCardsInFavorites(favourites);
+            dispatch(removeFavourites(articul));
         } else {
-            setCardsInFavorites([...cardsInFavorites, articul]);
+            dispatch(addToFavourites(articul));
         };
     };
 
@@ -80,7 +59,7 @@ const Favourites = () => {
         if (cardsInFavorites.length < 1) {
             content = <p className={styles.noItemsTitle}>No items in favourites</p>;
         } else {
-            const filteredCards = cardsList.cardsList.filter(({ articul }) => cardsInFavorites.includes(articul));
+            const filteredCards = cardsList.filter(({ articul }) => cardsInFavorites.includes(articul));
             content = (<CardsList
                 cards={filteredCards}
                 onClickHandler={onClickHandler}
@@ -93,15 +72,15 @@ const Favourites = () => {
         <div className={styles.favoritesSection}>
             <div className={styles.container}>
                 <h2 className={styles.favoritesTitle}>Favorites - {cardsInFavorites.length} items</h2>
-                <Modal
-                    header='Do you want to add this product to your cart?'
-                    closeButton={true}
-                    text='This item will be available in the cart'
-                    isShown={isModalOpen}
-                    actions={createModalButtons('Ok', 'Cancel', addCardsToCartHandler, closeModalHandler, currrentCardArticul)}
-                    closeModalHandler={() => { closeModalHandler() }} />
+                <ModalRoot modalType={ADD_TO_CART}
+                    modalProps={{
+                        actions: createModalButtons('Ok', 'Cancel', addCardsToCartHandler, closeModalHandler, currrentCardArticul),
+                        closeModalHandler: () => { closeModalHandler() },
+                        header: 'Do you want to add this product to your cart?',
+                        text: 'This item will be available in the cart',
+                        closeButton: true,
+                    }} />
                 {content}
-                <div onClick={() => { closeModalHandler() }} className={`${modalStyles.overlay} ${classHide}`}></div>
             </div>
         </div>
     );

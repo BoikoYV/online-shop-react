@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import styles from '../App/App.module.css';
 import { fetchCardsList } from '../store/cards/actions'
-import { getDataFromLs } from '../getDataFromLs';
-import createModalButtons from '../components/Modal/createModalButtons';
+import createModalButtons from '../components/Modal/basicModal/createModalButtons';
 import CardsList from '../components/CardsList/CardsList';
 import { ModalRoot } from '../components/Modal/ModalRoot';
 import { useDispatch, useSelector } from 'react-redux';
-import { ADD_TO_CART, DELETE_FROM_CART } from '../store/modal/types';
+import { ADD_TO_CART } from '../store/modal/types';
 import { addToFavourites, removeFavourites } from '../store/favourites/actions';
-
+import { addToCart } from '../store/cart/actions';
+import { setModalShow, setModalClose } from '../store/modal/actions';
+import { setCurrentArticul } from '../store/currentCardArticul/actions';
 
 const Cards = () => {
 
@@ -16,12 +17,10 @@ const Cards = () => {
     const cardsList = useSelector(({ cards }) => cards.cards);
     const currrentCardArticul = useSelector(({ currrentCardArticul }) => currrentCardArticul);
     const cardsInFavorites = useSelector(({ favourites }) => favourites);
-
+    // const cardsInCart = useSelector(({ cardsInCart }) => cardsInCart);
     const hasError = useSelector(({ hasError }) => hasError);
     const dispatch = useDispatch();
 
-    const [cardsInCart, setCardsInCart] = useState(getDataFromLs('cardsInCart'));
-    // const [cardsInFavorites, setCardsInFavorites] = useState(getDataFromLs('favouriteCards'));
 
     useEffect(() => {
         dispatch(fetchCardsList());
@@ -29,30 +28,19 @@ const Cards = () => {
     }, []);
 
     // Cart
-    const addCardsToCartHandler = (articulName) => {
-        if (!cardsInCart.includes(articulName)) {
-            setCardsInCart([...cardsInCart, articulName]);
-        }
+    const addCardsToCartHandler = (articul) => {
+        dispatch(addToCart(articul));
         closeModalHandler();
     }
 
     // Modals
     const onClickHandler = (articul) => {
-        dispatch({
-            type: 'SHOW_MODAL',
-            modalType: ADD_TO_CART,
-            modalProps: { currrentCardArticul: articul }
-        });
-        dispatch({
-            type: 'SET_CURRENT_ARTICUL',
-            payload: articul
-        });
+        dispatch(setModalShow(ADD_TO_CART))
+        dispatch(setCurrentArticul(articul));
     }
 
     const closeModalHandler = () => {
-        dispatch({
-            type: 'HIDE_MODAL'
-        })
+        dispatch(setModalClose(ADD_TO_CART))
     }
 
     // Favourites
@@ -79,11 +67,6 @@ const Cards = () => {
         )
     }
 
-    // LocalStorage
-    useEffect(() => {
-        localStorage.setItem('cardsInCart', JSON.stringify(cardsInCart));
-    }, [cardsInCart]);
-
     return (
         <div className={styles.app}>
             <div className={styles.container}>
@@ -91,7 +74,10 @@ const Cards = () => {
                     <ModalRoot modalType={ADD_TO_CART}
                         modalProps={{
                             actions: createModalButtons('Ok', 'Cancel', addCardsToCartHandler, closeModalHandler, currrentCardArticul),
-                            closeModalHandler: () => { closeModalHandler() }
+                            closeModalHandler: () => { closeModalHandler() },
+                            header: 'Do you want to add this product to your cart?',
+                            text: 'This item will be available in the cart',
+                            closeButton: true,
                         }} />
                     {content}
                 </div>

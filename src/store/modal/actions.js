@@ -8,10 +8,7 @@ export const setModalShow = ({ modalType, modalProps }) => ({
     }
 })
 
-export const setModalClose = ({ modalType, modalProps }) => ({
+export const setModalClose = ({ modalType }) => ({
     type: HIDE_MODAL,
-    modalType: modalType,
-    modalProps: {
-        ...modalProps
-    }
+    modalType: modalType
 })
