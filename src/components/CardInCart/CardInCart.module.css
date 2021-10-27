@@ -21,14 +21,9 @@
     display: block;
 }
 
-p {
-    margin-top: 0;
-}
-
-.itemInfo {}
-
 .itemTitle {
     margin-top: 0;
+    margin-bottom: 10px;
     font-weight: 500;
 }
 
@@ -36,13 +31,12 @@ p {
     color: #686868;
 }
 
-.color {}
-
-.articul {}
+.color {
+    margin-bottom: 10px;
+}
 
 .price {
     font-weight: 500;
-    /* color: #021973; */
 }
 
 .deleteItemBtn {
@@ -62,8 +56,4 @@ p {
 .deleteItemBtn:hover g {
     transition: .5s;
     stroke: rgb(245, 66, 66);
-}
-
-.count {
-    /* justify-self: center; */
 }

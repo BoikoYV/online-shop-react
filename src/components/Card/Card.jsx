@@ -17,6 +17,7 @@ const Card = ({ title, price, articul, color, imgSrc, onClickHandler, changeFavo
                     <span className={styles.productColor} style={{ backgroundColor: `${color}` }}></span>
                 </p>
                 <p>Articul: {articul}</p>
+                <p className={styles.cardPrice}>{price} UAH</p>
                 <button onClick={() => { changeFavouriteHandler(articul) }} className={styles.favouriteBox}>
                     <svg className={`${styles.favouriteIcon} ${isFavouriteClass}`} viewBox="0 0 122.88 117.1" xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -24,8 +25,6 @@ const Card = ({ title, price, articul, color, imgSrc, onClickHandler, changeFavo
                             fill="#fff" />
                     </svg>
                 </button>
-
-                <p className={styles.cardPrice}>{price} UAH</p>
                 <Button text='Add to card' onClickHandler={() => onClickHandler(articul)} />
             </div>
         </li>
