@@ -4,6 +4,12 @@
     padding: 0 10px;
 }
 
+.cartInner {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-areas: 'listTitles orderTotal' 'list orderTotal' 'orderForm orderTotal';
+}
+
 .cartTitle {
     margin-bottom: 40px;
     font-family: "Alumatica", sans-serif;
@@ -13,6 +19,7 @@
 }
 
 .listTitles {
+    grid-area: listTitles;
     display: grid;
     grid-template-columns: 120px repeat(4, 1fr);
     column-gap: 3%;

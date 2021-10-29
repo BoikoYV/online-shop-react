@@ -10,6 +10,7 @@ import { setModalShow, setModalClose } from '../../store/modal/actions';
 import { ModalRoot } from '../../components/Modal/ModalRoot';
 import { setCurrentArticul } from '../../store/currentCardArticul/actions';
 import Loader from '../../components/Loader/Loader';
+import { CartForm } from '../../components/CartForm/CartForm';
 
 const Cart = () => {
     const isLoading = useSelector(({ cards }) => cards.isLoading);
@@ -52,22 +53,21 @@ const Cart = () => {
             const filteredCards = cardsList.filter(({ articul }) => {
                 return cardsInCart.includes(articul)
             });
-            content = (<CartList
-                cards={filteredCards}
-                onClickHandler={onClickHandler} />)
+            content = (<>
+                <CartList
+                    cards={filteredCards}
+                    onClickHandler={onClickHandler} />
+                <CartForm />
+            </>
+            )
         }
     }
 
     return (
         <div className={styles.cartSection}>
             <div className={styles.container}>
-                <h2 className={styles.cartTitle}>Cart - {cardsInCart.length} items</h2>
-                <ul className={styles.listTitles}>
-                    <li>Photo</li>
-                    <li>Description</li>
-                    <li>Count</li>
-                    <li>Price</li>
-                </ul>
+                <h2 className={styles.cartTitle}>1. Products  - {cardsInCart.length}</h2>
+
                 <ModalRoot modalType={REMOVE_FROM_CART}
                     modalProps={{
                         actions: createModalButtons('Delete', 'Cancel', deleteFromCartHandler, closeModalHandler, currrentCardArticul.currentArticul),
@@ -76,7 +76,15 @@ const Cart = () => {
                         text: 'This product will be deleted from the cart',
                         closeButton: true,
                     }} />
-                {content}
+                <div className={styles.cartInner}>
+                    <ul className={styles.listTitles}>
+                        <li>Photo</li>
+                        <li>Description</li>
+                        <li>Count</li>
+                        <li>Price</li>
+                    </ul>
+                    {content}
+                </div>
             </div>
         </div>
     );
