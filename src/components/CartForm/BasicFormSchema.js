@@ -20,7 +20,8 @@ export const BasicFormSchema = Yup.object().shape({
         .min(18, 'Min age is 18')
         .max(110, 'Max age is 110')
         .required('Required field'),
-    phone: Yup.number()
+    phone: Yup.string()
+        .matches(/^[+]?38\s[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{2}[-\s.]?[0-9]{2}$/im, "Invalid phone number format")
         .required('Required field'),
     address: Yup.string()
         .min(5, 'The address must be longer than 5 characters')

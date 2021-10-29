@@ -31,7 +31,6 @@ export const formDataFields = [
         id: 5,
         name: 'phone',
         label: 'Phone',
-        placeholder: 'Phone',
         type: 'tel',
     }
     ,
