@@ -5,6 +5,9 @@ export const cartReducer = ((state = [], action) => {
             return isInCart ? [...state] : [...state, action.payload.currentArticul];
         case 'REMOVE_FROM_CART':
             return state.filter((articul) => articul !== action.payload)
+        case 'CHECKOUT_ORDER':
+            console.log(state);
+            return [];
         default:
             return state;
     }

@@ -24,9 +24,12 @@ Modal.propTypes = {
     isShown: PropTypes.bool,
     header: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired,
-    actions: PropTypes.node.isRequired,
+    actions: PropTypes.node,
     closeButton: PropTypes.bool,
     closeModalHandler: PropTypes.func.isRequired,
 };
+Modal.defaultProps = {
+    actions: null
+}
 
 export default Modal;

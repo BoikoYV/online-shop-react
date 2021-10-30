@@ -1,70 +1,59 @@
 import React from 'react';
-import { Formik, Form, ErrorMessage, FieldArray, useField } from 'formik';
+import { Formik, Form, FieldArray } from 'formik';
 import styles from './CartForm.module.css';
 import btnStyles from '../Button/Button.module.css';
 import { BasicFormSchema } from './BasicFormSchema';
 import { formDataFields } from './formDataFields';
-import NumberFormat from "react-number-format";
-import { FormikInputBlock } from './FormikInputBlock';
+import { FormikInputBlock } from './formFields/FormikInputBlock';
+import { NumberFormatInputBlock } from './formFields/NumberFormatInputBlock'
+import { useDispatch, useSelector } from 'react-redux';
 
-const NumberFormatInputBlock = ({ name, label, id, placeholder, type }) => {
-    const [field] = useField(name);
+export const CartForm = (changeModalHandler) => {
+    const dispatch = useDispatch();
+    const cardsInCart = useSelector(({ cardsInCart }) => cardsInCart);
 
-    return <div key={id} className={styles.fieldContainer}>
-        <label className={styles.orderLabel} htmlFor={name}>{label}</label>
-        <NumberFormat
-            {...field}
-            className={styles.orderInput}
-            format="+38 (###) ###-##-##"
-            allowEmptyFormatting mask="_"
-            name={name}
-            placeholder={placeholder}
-            type={type}
-        />
-        <ErrorMessage component="p" className={styles.fieldError} name={name} />
-
-    </div>
-}
-
-export const CartForm = () => {
     const handleFormSubmit = (values, { setSubmitting }) => {
         console.log('submit');
         console.log(values);
+        console.log(cardsInCart);
     }
 
+
     return (
-        <div className={styles.formContainer}>
-            <h1 className={styles.cartTitle}>2. Shipping info</h1>
+        <>
+            <div className={styles.formContainer}>
+                <h1 className={styles.cartTitle}>2. Shipping info</h1>
 
-            <Formik
-                initialValues={{
-                    firstName: '',
-                    lastName: '',
-                    email: '',
-                    age: '',
-                    phone: '',
-                    address: ''
-                }}
-                validationSchema={BasicFormSchema}
-                onSubmit={handleFormSubmit}>
+                <Formik
+                    initialValues={{
+                        firstName: '',
+                        lastName: '',
+                        email: '',
+                        age: '',
+                        phone: '',
+                        address: ''
+                    }}
+                    validationSchema={BasicFormSchema}
+                    onSubmit={handleFormSubmit}>
 
-                {({ isSubmitting }) => (
-                    <Form>
-                        <FieldArray name="fields"
-                            render={() => (<>
-                                <div className={styles.formInner}>
-                                    {formDataFields.map(({ id, name, label, placeholder, type }) => {
-                                        return name === 'phone' ?
-                                            <NumberFormatInputBlock key={id} name={name} type={type} label={label} /> :
-                                            <FormikInputBlock key={id} name={name} type={type} label={label} placeholder={placeholder} />
-                                    })}
-                                </div>
-                                <button className={`${btnStyles.btn} ${styles.submitBtn}`} disabled={isSubmitting} type="submit">Submit</button>
-                            </>)}
-                        />
-                    </Form>
-                )}
-            </Formik>
-        </div>
+                    {({ isSubmitting }) => (
+                        <Form>
+                            <FieldArray name="fields"
+                                render={() => (<>
+                                    <div className={styles.formInner}>
+                                        {formDataFields.map(({ id, name, label, placeholder, type }) => {
+                                            return name === 'phone' ?
+                                                <NumberFormatInputBlock key={id} name={name} type={type} label={label} /> :
+                                                <FormikInputBlock key={id} name={name} type={type} label={label} placeholder={placeholder} />
+                                        })}
+                                    </div>
+                                    <button className={`${btnStyles.btn} ${styles.submitBtn}`} disabled={isSubmitting} type="submit">Checkout</button>
+                                </>)}
+                            />
+                        </Form>
+                    )}
+                </Formik>
+            </div>
+        </>
     )
 };

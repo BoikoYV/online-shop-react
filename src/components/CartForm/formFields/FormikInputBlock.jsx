@@ -1,5 +1,5 @@
 import { Field, ErrorMessage } from 'formik';
-import styles from './CartForm.module.css';
+import styles from '../CartForm.module.css';
 
 export const FormikInputBlock = ({ id, name, placeholder, type, label }) => {
     return <div key={id} className={styles.fieldContainer}>
