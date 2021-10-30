@@ -38,9 +38,15 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     column-gap: 20px;
-    margin-bottom: 30px;
+    margin-bottom: 15px;
 }
 
 .submitBtn {
-    width: 50%;
+    width: 30%;
+}
+.form{
+    background-color: #d3cdf94d;
+    border-radius: 25px;
+    padding: 30px 20px;
+    box-shadow: 0px 0px 10px 1px hsl(245deg, 76%, 97%);
 }

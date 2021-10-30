@@ -21,7 +21,8 @@
 .listTitles {
     grid-area: listTitles;
     display: grid;
-    grid-template-columns: 120px repeat(4, 1fr);
+    grid-template-columns: 120px  1.5fr repeat(3, 1fr) 50px;
+    text-align: center;
     column-gap: 3%;
     justify-content: space-between;
     margin-bottom: 40px;

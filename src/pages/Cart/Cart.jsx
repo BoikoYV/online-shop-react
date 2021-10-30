@@ -45,12 +45,11 @@ const Cart = () => {
         content = (<Loader />)
     } else if (hasError) {
         content = (<div>Sorry, error</div>)
-    }
-    else if (cardsInCart.length < 1) {
-        content = <p className={styles.noItemsTitle}>No items in cart</p>;
     } else {
         const filteredCards = cardsList.filter(({ articul }) => {
-            return cardsInCart.includes(articul)
+            return cardsInCart.find(({ id }) => {
+                return articul === id;
+            })
         });
         content = (<>
             <CartList
@@ -64,15 +63,18 @@ const Cart = () => {
         <div className={styles.cartSection}>
             <div className={styles.container}>
                 <h2 className={styles.cartTitle}>1. Products  - {cardsInCart.length}</h2>
-                <div className={styles.cartInner}>
-                    <ul className={styles.listTitles}>
-                        <li>Photo</li>
-                        <li>Description</li>
-                        <li>Count</li>
-                        <li>Price</li>
-                    </ul>
-                    {content}
-                </div>
+                {cardsInCart.length >= 1 ?
+                    <div className={styles.cartInner}>
+                        <ul className={styles.listTitles}>
+                            <li>Photo</li>
+                            <li>Description</li>
+                            <li>Price</li>
+                            <li>Quantity</li>
+                            <li>Total</li>
+                        </ul>
+                        {content}
+                    </div> :
+                    content = <p className={styles.noItemsTitle}>No items in cart</p>}
             </div>
             <ModalRoot modalType={SHOW_REMOVE_FROM_CART_MODAL}
                 modalProps={{

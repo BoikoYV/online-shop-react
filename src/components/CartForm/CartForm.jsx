@@ -44,7 +44,7 @@ export const CartForm = (changeModalHandler) => {
                     onSubmit={handleFormSubmit}>
 
                     {({ isSubmitting }) => (
-                        <Form>
+                        <Form className={styles.form}>
                             <FieldArray name="fields"
                                 render={() => (<>
                                     <div className={styles.formInner}>
