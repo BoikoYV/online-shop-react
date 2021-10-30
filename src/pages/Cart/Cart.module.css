@@ -8,6 +8,7 @@
     display: grid;
     grid-template-columns: 2fr 1fr;
     grid-template-areas: 'listTitles orderTotal' 'list orderTotal' 'orderForm orderTotal';
+    column-gap: 100px;
 }
 
 .cartTitle {
@@ -25,7 +26,7 @@
     text-align: center;
     column-gap: 3%;
     justify-content: space-between;
-    margin-bottom: 40px;
+    margin-bottom: 50px;
     border-bottom: 1px solid #586ece26;
     padding-bottom: 30px;
 }

@@ -11,7 +11,7 @@ import { ModalRoot } from '../../components/Modal/ModalRoot';
 import { setCurrentArticul } from '../../store/currentCardArticul/actions';
 import Loader from '../../components/Loader/Loader';
 import { CartForm } from '../../components/CartForm/CartForm';
-
+import OrderTotals from '../../components/OrderTotals/OrderTotals'
 const Cart = () => {
     const isLoading = useSelector(({ cards }) => cards.isLoading);
     const cardsList = useSelector(({ cards }) => cards.cards);
@@ -55,6 +55,7 @@ const Cart = () => {
             <CartList
                 cards={filteredCards}
                 onClickHandler={onClickHandler} />
+            <OrderTotals />
             <CartForm />
         </>)
     }

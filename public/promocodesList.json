@@ -1,0 +1,14 @@
+[
+    {
+        "code": "promocode",
+        "discountInPercentage": 5
+    },
+    {
+        "code":  "gtgtt90gt2",
+        "discountInPercentage": 10
+    },
+    {
+        "code":  "half",
+        "discountInPercentage": 50
+    }
+]
