@@ -5,8 +5,8 @@ import CartList from '../../components/CartList/CartList';
 import createModalButtons from '../../components/Modal/basicModal/createModalButtons';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeFromCart } from '../../store/cart/actions';
-import { REMOVE_FROM_CART } from '../../store/modal/types';
-import { setModalShow, setModalClose } from '../../store/modal/actions';
+import { SHOW_REMOVE_FROM_CART_MODAL } from '../../store/modal/types';
+import { setRemoveFromCartModalShow, setModalClose } from '../../store/modal/actions';
 import { ModalRoot } from '../../components/Modal/ModalRoot';
 import { setCurrentArticul } from '../../store/currentCardArticul/actions';
 import Loader from '../../components/Loader/Loader';
@@ -32,12 +32,12 @@ const Cart = () => {
 
     // Modals
     const onClickHandler = (articul) => {
-        dispatch(setModalShow(REMOVE_FROM_CART, { articul }))
+        dispatch(setRemoveFromCartModalShow(SHOW_REMOVE_FROM_CART_MODAL, { articul }))
         dispatch(setCurrentArticul(articul));
     }
 
     const closeModalHandler = () => {
-        dispatch(setModalClose(REMOVE_FROM_CART));
+        dispatch(setModalClose(SHOW_REMOVE_FROM_CART_MODAL));
     }
 
     let content;
@@ -46,36 +46,24 @@ const Cart = () => {
     } else if (hasError) {
         content = (<div>Sorry, error</div>)
     }
-    else {
-        if (cardsInCart.length < 1) {
-            content = <p className={styles.noItemsTitle}>No items in cart</p>;
-        } else {
-            const filteredCards = cardsList.filter(({ articul }) => {
-                return cardsInCart.includes(articul)
-            });
-            content = (<>
-                <CartList
-                    cards={filteredCards}
-                    onClickHandler={onClickHandler} />
-                <CartForm />
-            </>
-            )
-        }
+    else if (cardsInCart.length < 1) {
+        content = <p className={styles.noItemsTitle}>No items in cart</p>;
+    } else {
+        const filteredCards = cardsList.filter(({ articul }) => {
+            return cardsInCart.includes(articul)
+        });
+        content = (<>
+            <CartList
+                cards={filteredCards}
+                onClickHandler={onClickHandler} />
+            <CartForm />
+        </>)
     }
 
     return (
         <div className={styles.cartSection}>
             <div className={styles.container}>
                 <h2 className={styles.cartTitle}>1. Products  - {cardsInCart.length}</h2>
-
-                <ModalRoot modalType={REMOVE_FROM_CART}
-                    modalProps={{
-                        actions: createModalButtons('Delete', 'Cancel', deleteFromCartHandler, closeModalHandler, currrentCardArticul.currentArticul),
-                        closeModalHandler: () => { closeModalHandler() },
-                        header: 'Do you want to delete this product ?',
-                        text: 'This product will be deleted from the cart',
-                        closeButton: true,
-                    }} />
                 <div className={styles.cartInner}>
                     <ul className={styles.listTitles}>
                         <li>Photo</li>
@@ -86,6 +74,14 @@ const Cart = () => {
                     {content}
                 </div>
             </div>
+            <ModalRoot modalType={SHOW_REMOVE_FROM_CART_MODAL}
+                modalProps={{
+                    actions: createModalButtons('Delete', 'Cancel', deleteFromCartHandler, closeModalHandler, currrentCardArticul.currentArticul),
+                    closeModalHandler: () => { closeModalHandler() },
+                    header: 'Do you want to delete this product ?',
+                    text: 'This product will be deleted from the cart',
+                    closeButton: true,
+                }} />
         </div>
     );
 };

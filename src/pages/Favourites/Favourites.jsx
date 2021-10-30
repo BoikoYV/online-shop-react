@@ -5,8 +5,8 @@ import createModalButtons from '../../components/Modal/basicModal/createModalBut
 import styles from './Favourites.module.css';
 import { fetchCardsList } from '../../store/cards/actions'
 import { addToCart } from '../../store/cart/actions';
-import { ADD_TO_CART } from '../../store/modal/types';
-import { setModalShow, setModalClose } from '../../store/modal/actions';
+import { SHOW_ADD_TO_CART_MODAL } from '../../store/modal/types';
+import { setAddToCartModalShow, setModalClose } from '../../store/modal/actions';
 import { setCurrentArticul } from '../../store/currentCardArticul/actions';
 import { ModalRoot } from '../../components/Modal/ModalRoot';
 import { addToFavourites, removeFavourites } from '../../store/favourites/actions';
@@ -33,12 +33,12 @@ const Favourites = () => {
 
     // Modals
     const onClickHandler = (articul) => {
-        dispatch(setModalShow(ADD_TO_CART))
+        dispatch(setAddToCartModalShow(SHOW_ADD_TO_CART_MODAL))
         dispatch(setCurrentArticul(articul));
     }
 
     const closeModalHandler = () => {
-        dispatch(setModalClose(ADD_TO_CART))
+        dispatch(setModalClose(SHOW_ADD_TO_CART_MODAL))
     }
 
     // Favourites
@@ -56,24 +56,23 @@ const Favourites = () => {
     } else if (hasError) {
         content = (<div>Sorry, error</div>)
     }
-    else {
-        if (cardsInFavorites.length < 1) {
-            content = <p className={styles.noItemsTitle}>No items in favourites</p>;
-        } else {
-            const filteredCards = cardsList.filter(({ articul }) => cardsInFavorites.includes(articul));
-            content = (<CardsList
-                cards={filteredCards}
-                onClickHandler={onClickHandler}
-                changeFavouriteHandler={changeFavouriteHandler}
-                favouritesCardsArr={cardsInFavorites} />)
-        }
+    else if (cardsInFavorites.length < 1) {
+        content = <p className={styles.noItemsTitle}>No items in favourites</p>;
+    } else {
+        const filteredCards = cardsList.filter(({ articul }) => cardsInFavorites.includes(articul));
+        content = (<CardsList
+            cards={filteredCards}
+            onClickHandler={onClickHandler}
+            changeFavouriteHandler={changeFavouriteHandler}
+            favouritesCardsArr={cardsInFavorites} />)
     }
 
     return (
         <div className={styles.favoritesSection}>
             <div className={styles.container}>
                 <h2 className={styles.favoritesTitle}>Favorites - {cardsInFavorites.length} items</h2>
-                <ModalRoot modalType={ADD_TO_CART}
+                {content}
+                <ModalRoot modalType={SHOW_ADD_TO_CART_MODAL}
                     modalProps={{
                         actions: createModalButtons('Ok', 'Cancel', addCardsToCartHandler, closeModalHandler, currrentCardArticul),
                         closeModalHandler: () => { closeModalHandler() },
@@ -81,7 +80,6 @@ const Favourites = () => {
                         text: 'This item will be available in the cart',
                         closeButton: true,
                     }} />
-                {content}
             </div>
         </div>
     );

@@ -1,13 +1,12 @@
 import { AddToCartModal } from './addToCartModal/AddToCartModal';
 import { DeleteFromCartModal } from './deleteFromCartModal/DeleteFromCartModal';
 import { OrderModal } from './orderModal/OrderModal';
-import { ADD_TO_CART, REMOVE_FROM_CART } from '../../store/modal/types';
-import {CHECKOUT_ORDER} from '../../store/cart/types'
+import { SHOW_ADD_TO_CART_MODAL, SHOW_REMOVE_FROM_CART_MODAL, SHOW_CHECKOUT_MODAL } from '../../store/modal/types';
+
 const MODAL_COMPONENTS = {
-    [ADD_TO_CART]: AddToCartModal,
-    [REMOVE_FROM_CART]: DeleteFromCartModal,
-    [CHECKOUT_ORDER]: OrderModal,
-    /* other modals */
+    [SHOW_ADD_TO_CART_MODAL]: AddToCartModal,
+    [SHOW_REMOVE_FROM_CART_MODAL]: DeleteFromCartModal,
+    [SHOW_CHECKOUT_MODAL]: OrderModal,
 }
 
 export const ModalRoot = ({ modalType, modalProps }) => {
@@ -15,4 +14,3 @@ export const ModalRoot = ({ modalType, modalProps }) => {
     const SpecificModal = MODAL_COMPONENTS[modalType];
     return <SpecificModal {...modalProps} />
 }
-

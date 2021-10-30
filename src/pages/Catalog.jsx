@@ -5,13 +5,14 @@ import createModalButtons from '../components/Modal/basicModal/createModalButton
 import CardsList from '../components/CardsList/CardsList';
 import { ModalRoot } from '../components/Modal/ModalRoot';
 import { useDispatch, useSelector } from 'react-redux';
-import { ADD_TO_CART } from '../store/modal/types';
+import { SHOW_ADD_TO_CART_MODAL } from '../store/modal/types';
 import { addToFavourites, removeFavourites } from '../store/favourites/actions';
 import { addToCart } from '../store/cart/actions';
-import { setModalShow, setModalClose } from '../store/modal/actions';
+import { setAddToCartModalShow, setModalClose } from '../store/modal/actions';
 import { setCurrentArticul } from '../store/currentCardArticul/actions';
 import Loader from '../components/Loader/Loader';
-const Cards = () => {
+
+const Catalog = () => {
 
     const isLoading = useSelector(({ cards }) => cards.isLoading);
     const cardsList = useSelector(({ cards }) => cards.cards);
@@ -35,12 +36,12 @@ const Cards = () => {
 
     // Modals
     const onClickHandler = (articul) => {
-        dispatch(setModalShow(ADD_TO_CART))
+        dispatch(setAddToCartModalShow(SHOW_ADD_TO_CART_MODAL))
         dispatch(setCurrentArticul(articul));
     }
 
     const closeModalHandler = () => {
-        dispatch(setModalClose(ADD_TO_CART))
+        dispatch(setModalClose(SHOW_ADD_TO_CART_MODAL))
     }
 
     // Favourites
@@ -72,7 +73,7 @@ const Cards = () => {
         <div className={styles.app}>
             <div className={styles.container}>
                 <div className={styles.appInner}>
-                    <ModalRoot modalType={ADD_TO_CART}
+                    <ModalRoot modalType={SHOW_ADD_TO_CART_MODAL}
                         modalProps={{
                             actions: createModalButtons('Ok', 'Cancel', addCardsToCartHandler, closeModalHandler, currrentCardArticul),
                             closeModalHandler: () => { closeModalHandler() },
@@ -87,4 +88,4 @@ const Cards = () => {
     );
 };
 
-export default Cards;
+export default Catalog;
