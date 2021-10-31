@@ -17,7 +17,7 @@ export const CartForm = (cards) => {
     const dispatch = useDispatch();
     const [values, setvalues] = useState(null);
 
-    const handleFormSubmit = (values, { setSubmitting }) => {
+    const handleFormSubmit = (values) => {
         setvalues(values);
         dispatch(setCheckoutModalShow(SHOW_CHECKOUT_MODAL))
     }

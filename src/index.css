@@ -3,18 +3,11 @@
     src: local('Alumatica'), url(./fonts/Alumatica-Regular.woff2) format('woff2');
 }
 
-@font-face {
-    font-family: 'Geometris';
-    src: local('Geometris'), url(./fonts/GeometrisRound-Regular.woff2) format('woff2');
-}
-
 body {
     margin: 0;
     font-family: sans-serif;
     box-sizing: border-box;
     position: relative;
-    /* font-family: 'Geometris', sans-serif; */
-    /* font-family: "Alumatica", sans-serif; */
 }
 
 #root {

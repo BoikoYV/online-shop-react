@@ -34,7 +34,7 @@ const OrderTotals = () => {
     const subTotal = countSubtotal(cardsInCart, cardsList)
     const total = countTotalWithDiscount(subTotal, discount);
 
-    const handleSubmit = (values, { setSubmitting }) => {
+    const handleSubmit = (values) => {
         const { promocode } = values;
         const availablePromocode = promocodes.find(({ code }) => code === promocode.trim());
         availablePromocode &&
@@ -47,7 +47,6 @@ const OrderTotals = () => {
                 initialValues={{ promocode: '' }}
                 onSubmit={handleSubmit}>
                 {() => (
-
                     <Form className={styles.promocodeForm}>
                         <p className={styles.promocodeFormTitle}>Apply a promo code</p>
                         <div className={styles.promocodeFieldContainer}>
@@ -56,7 +55,6 @@ const OrderTotals = () => {
                         </div>
                     </Form >
                 )}
-
             </Formik>
             <div className={styles.totalsContainer}>
                 <h3 className={styles.totalsTitle}>Order totals</h3>
