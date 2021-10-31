@@ -1,7 +1,6 @@
 import { getCardsList } from "../../api/getCardsList";
 import { SET_CARDS, SET_LOADING, SET_ERROR } from './types';
 
-
 export const setCards = cards => ({
     type: SET_CARDS,
     payload: cards

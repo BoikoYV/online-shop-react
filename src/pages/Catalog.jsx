@@ -13,12 +13,10 @@ import { setCurrentArticul } from '../store/currentCardArticul/actions';
 import Loader from '../components/Loader/Loader';
 
 const Catalog = () => {
-
     const isLoading = useSelector(({ cards }) => cards.isLoading);
     const cardsList = useSelector(({ cards }) => cards.cards);
     const currrentCardArticul = useSelector(({ currrentCardArticul }) => currrentCardArticul);
     const cardsInFavorites = useSelector(({ favourites }) => favourites);
-    // const cardsInCart = useSelector(({ cardsInCart }) => cardsInCart);
     const hasError = useSelector(({ hasError }) => hasError);
     const dispatch = useDispatch();
 
@@ -59,7 +57,6 @@ const Catalog = () => {
     }
     else if (hasError) {
         content = (<div>Sorry, error</div>)
-
     } else {
         content = (
             <CardsList cards={cardsList}

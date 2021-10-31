@@ -1,6 +1,7 @@
 import { ErrorMessage, useField } from 'formik';
 import styles from '../CartForm.module.css';
 import NumberFormat from "react-number-format";
+import PropTypes from 'prop-types';
 
 export const NumberFormatInputBlock = ({ name, label, id, placeholder, type }) => {
     const [field] = useField(name);
@@ -17,6 +18,19 @@ export const NumberFormatInputBlock = ({ name, label, id, placeholder, type }) =
             type={type}
         />
         <ErrorMessage component="p" className={styles.fieldError} name={name} />
-
     </div>
+}
+
+NumberFormatInputBlock.propTypes = {
+    id: PropTypes.string,
+    name: PropTypes.string.isRequired,
+    placeholder: PropTypes.string,
+    type: PropTypes.string,
+    label: PropTypes.string.isRequired,
+}
+
+NumberFormatInputBlock.defaultProps = {
+    placeholder: '',
+    type: 'text',
+    id: '',
 }

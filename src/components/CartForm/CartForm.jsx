@@ -12,6 +12,7 @@ import { SHOW_CHECKOUT_MODAL } from '../../store/modal/types';
 import { setCheckoutModalShow, setModalClose } from '../../store/modal/actions';
 import { checkoutOrder } from '../../store/cart/actions';
 import { removeDiscount } from '../../store/cart/actions';
+import PropTypes from 'prop-types';
 
 export const CartForm = (cards) => {
     const dispatch = useDispatch();
@@ -72,3 +73,10 @@ export const CartForm = (cards) => {
         </>
     )
 };
+
+CartForm.propTypes = {
+    cards: PropTypes.array
+};
+CartForm.defaultProps = {
+    cards: []
+}

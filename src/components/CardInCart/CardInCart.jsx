@@ -4,33 +4,31 @@ import styles from './CardInCart.module.css';
 import TrashIcon from './TrashIcon';
 import { useDispatch, useSelector } from 'react-redux';
 import { increaseProductQuantity, decreaseProductQuantity } from '../../store/cart/actions';
-import CheckoutList from '../CheckoutList/CheckoutList.module.css'
+import CheckoutList from '../CheckoutList/CheckoutList.module.css';
 
 const NOIMGSRC = 'img/notfound.png';
-const CardInCart = ({ articul, imgSrc, title, color, price, isPriceShow=true, onClickHandler, hasQuantityBtns = true, hasTrashIcon = true, orderModalStyles = false }) => {
+const CardInCart = ({ articul, imgSrc, title, color, price, isPriceShow, onClickHandler, hasQuantityBtns, hasTrashIcon, orderModalStyles }) => {
     const cardsInCart = useSelector(({ cardsInCart }) => cardsInCart);
     const currentCard = cardsInCart.find(({ id }) => id === articul);
-
     const dispatch = useDispatch();
 
     const decrementHandler = () => {
         dispatch(decreaseProductQuantity(articul))
     }
+
     const incrementHandler = () => {
         dispatch(increaseProductQuantity(articul))
     }
 
-
     return (
         <li className={orderModalStyles ? CheckoutList.item : styles.item}>
             <img src={imgSrc ? imgSrc : NOIMGSRC} alt={title} className={styles.img} />
-            <div className={orderModalStyles ? CheckoutList.itemInfo :styles.itemInfo}>
+            <div className={orderModalStyles ? CheckoutList.itemInfo : styles.itemInfo}>
                 <h3 className={styles.itemTitle}>{title}</h3>
                 <p className={styles.color}>Color: {color}</p>
                 <p className={styles.articul}>Articul: {articul}</p>
             </div>
             {isPriceShow ? <p className={styles.price}>{price} UAH</p> : ''}
-
             <p className={styles.quantity}>
                 {hasQuantityBtns ? <button className={`${styles.quantityBtn} ${styles.decrement}`} onClick={decrementHandler}>-</button> : ''}
                 <span>{currentCard.count}</span>
@@ -51,11 +49,19 @@ CardInCart.propTypes = {
     title: PropTypes.string.isRequired,
     color: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
-    onClickHandler: PropTypes.func
+    onClickHandler: PropTypes.func,
+    isPriceShow: PropTypes.bool,
+    hasQuantityBtns: PropTypes.bool,
+    hasTrashIcon: PropTypes.bool,
+    orderModalStyles: PropTypes.bool,
 }
 
 CardInCart.defaultProps = {
     imgSrc: "",
+    isPriceShow: true,
+    hasQuantityBtns: true,
+    hasTrashIcon: true,
+    orderModalStyles: false
 }
 
 export default CardInCart;

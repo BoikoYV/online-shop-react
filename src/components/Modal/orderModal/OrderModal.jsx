@@ -5,7 +5,7 @@ import orderModalStyles from './OrderModal.module.css';
 import CheckoutList from '../../CheckoutList/CheckoutList';
 import { countSubtotal } from '../../../helpers/countSubtotal';
 import { countTotalWithDiscount } from '../../../helpers/countTotalWithDiscount'
-
+import PropTypes from 'prop-types';
 
 export const OrderModal = ({ header, closeButton, formValues, closeModalHandler }) => {
     const modalIsShown = useSelector(({ modal }) => modal.checkoutModalIsOpen);
@@ -73,3 +73,15 @@ export const OrderModal = ({ header, closeButton, formValues, closeModalHandler 
         </>
     )
 }
+
+OrderModal.propTypes = {
+    header: PropTypes.string.isRequired,
+    closeButton: PropTypes.bool,
+    formValues: PropTypes.object,
+    closeModalHandler: PropTypes.func.isRequired,
+};
+
+OrderModal.defaultProps = {
+    formValues: {},
+    closeButton: true
+};
