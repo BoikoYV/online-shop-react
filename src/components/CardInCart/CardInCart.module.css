@@ -1,6 +1,6 @@
 .item {
     display: grid;
-    grid-template-columns: 120px repeat(4, 1fr);
+    grid-template-columns: 120px 1.5fr repeat(3, 1fr) 50px;
     grid-column-gap: 3%;
     column-gap: 3%;
     border-radius: 15px;
@@ -8,6 +8,7 @@
     min-height: 80px;
     padding: 15px;
     align-items: center;
+    text-align: center;
 }
 
 .img {
@@ -47,13 +48,37 @@
 }
 
 .trashIcon {
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
     object-fit: contain;
     transition: .5s;
 }
 
-.deleteItemBtn:hover g {
+.deleteItemBtn:hover path {
     transition: .5s;
     stroke: rgb(245, 66, 66);
+}
+
+.quantityBtn {
+    width: 30px;
+    height: 30px;
+    background-color: rgb(190, 200, 244);
+    border-radius: 50%;
+}
+
+.quantityBtn:hover {
+    background-color: rgb(88, 110, 205);
+    color: #fff;
+}
+
+.decrement {
+    margin-right: 10px;
+}
+
+.increment {
+    margin-left: 10px;
+}
+
+.itemInfo {
+    text-align: left;
 }

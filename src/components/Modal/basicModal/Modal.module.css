@@ -1,7 +1,7 @@
 .modalBox {
     width: 520px;
     position: absolute;
-    z-index: 2;
+    z-index: 21;
     background-color: #fefefe;
     display: flex;
     flex-direction: column;
@@ -14,6 +14,8 @@
     border-radius: 15px;
     box-shadow: 0px 2px 12px 1px rgba(72, 62, 121, 60%);
     padding-bottom: 20px;
+    max-height: 500px;
+    overflow-y: scroll;
 }
 
 .header {
@@ -52,20 +54,19 @@
 }
 
 .btnBox button {
-    background-color: #9b8cf1;
+    background-color: rgb(190, 200, 244);
     padding: 15px;
     border-radius: 15px;
-    color: #fff;
+    color: #000;
     width: 100px;
-    box-shadow: 0px 3px 3px 0px #c9c1f7;
 }
 
 .btn:hover {
-    background-color: #6a52ee;
+    background-color: #667ad1;
 }
 
 .overlay {
-    z-index: 1;
+    z-index: 20;
     width: 100%;
     position: fixed;
     top: 0;

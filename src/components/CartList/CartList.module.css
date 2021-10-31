@@ -3,4 +3,6 @@
     grid-template-columns: 1fr;
     grid-row-gap: 30px;
     row-gap: 30px;
+    grid-area: list;
+    margin-bottom: 60px;
 }

@@ -5,16 +5,30 @@ const initialState = {
         header: null,
         text: null
     },
-    modalIsOpen: false,
+    addToCartModalIsOpen: false,
+    removeFromCartModalIsOpen: false,
+    checkoutModalIsOpen: false
 }
 
 export const modalReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'SHOW_MODAL':
+        case 'SHOW_ADD_TO_CART_MODAL':
             return {
                 modalType: action.modalType,
                 modalProps: { ...initialState.modalProps, ...action.payload },
-                modalIsOpen: true
+                addToCartModalIsOpen: true,
+            }
+        case 'SHOW_REMOVE_FROM_CART_MODAL':
+            return {
+                modalType: action.modalType,
+                modalProps: { ...initialState.modalProps, ...action.payload },
+                removeFromCartModalIsOpen: true,
+            }
+        case 'SHOW_CHECKOUT_MODAL':
+            return {
+                modalType: action.modalType,
+                modalProps: { ...initialState.modalProps, ...action.payload },
+                checkoutModalIsOpen: true,
             }
         case 'HIDE_MODAL':
             return { ...initialState }

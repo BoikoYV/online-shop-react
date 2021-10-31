@@ -5,6 +5,7 @@ import { cartReducer } from './cart/reducer';
 import { cardsReducer } from './cards/reducer';
 import { modalReducer } from './modal/reducer';
 import { currentArticulReducer } from './currentCardArticul/reducer';
+import { discountReducer } from './cart/reducer';
 
 const rootReducer = combineReducers({
     modal: modalReducer,
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
     favourites: favouritesReducer,
     cardsInCart: cartReducer,
     currrentCardArticul: currentArticulReducer,
+    discount: discountReducer,
 })
 
 const syncMiddleware = store => next => action => {
@@ -20,9 +22,13 @@ const syncMiddleware = store => next => action => {
         const { favourites } = store.getState();
         localStorage.setItem('favourites', JSON.stringify(favourites))
     }
-    if (['ADD_TO_CART', 'REMOVE_FROM_CART'].includes(action.type)) {
+    if (['ADD_TO_CART', 'REMOVE_FROM_CART', 'DECREASE_PRODUCT_QUANTITY', 'INCREASE_PRODUCT_QUANTITY', 'CHECKOUT_ORDER'].includes(action.type)) {
         const { cardsInCart } = store.getState();
         localStorage.setItem('cardsInCart', JSON.stringify(cardsInCart))
+    }
+    if (['ADD_DISCOUNT','REMOVE_DISCOUNT'].includes(action.type)) {
+        const { discount } = store.getState();
+        localStorage.setItem('discount', JSON.stringify(discount))
     }
     return result
 }
@@ -30,10 +36,18 @@ const syncMiddleware = store => next => action => {
 let initialState = {};
 const favouritesFromLS = localStorage.getItem('favourites');
 const cardsInCartFromLS = localStorage.getItem('cardsInCart');
+const discountFromLS = localStorage.getItem('discount');
 
 if (favouritesFromLS) {
     try {
         initialState = { ...initialState, favourites: JSON.parse(favouritesFromLS) }
+    } catch (err) {
+        console.error(err);
+    }
+}
+if (discountFromLS) {
+    try {
+        initialState = { ...initialState, discount: JSON.parse(discountFromLS) }
     } catch (err) {
         console.error(err);
     }
@@ -46,9 +60,6 @@ if (cardsInCartFromLS) {
         console.error(err);
     }
 }
-
-
-
 
 const devTools = window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (args) => args
 

@@ -1,5 +1,12 @@
 [
     {
+        "title": "Sunbed 'Mister Brown'",
+        "price": 600,
+        "articul": 1063,
+        "color": "Brown",
+        "imgSrc": "img/vigvam10.jpeg"
+    },
+    {
         "title": "Wigwam 'Fluffy'",
         "price": 780,
         "articul": 1254,
@@ -7,25 +14,18 @@
         "imgSrc": "img/vigvam1.jpeg"
     },
     {
-        "title": "Wigwam 'Tower'",
-        "price": 780,
-        "articul": 1320,
-        "color": "Brown",
-        "imgSrc": ""
-    },
-    {
-        "title": "Wigwam 'Night'",
-        "price": 1300,
-        "articul": 3290,
-        "color": "Navy",
-        "imgSrc": "img/vigvam3.webp"
-    },
-    {
         "title": "Wigwam 'Halloween'",
         "price": 1300,
         "articul": 5000,
         "color": "Black",
         "imgSrc": "img/vigvam4.webp"
+    },
+    {
+        "title": "Yurt 'Foxy'",
+        "price": 480,
+        "articul": 1994,
+        "color": "Grey and orange",
+        "imgSrc": "img/vigvam9.jpeg"
     },
     {
         "title": "Hammock 'Lagoon'",
@@ -42,6 +42,13 @@
         "imgSrc": "img/vigvam6.jpeg"
     },
     {
+        "title": "Wigwam 'Night'",
+        "price": 1300,
+        "articul": 3290,
+        "color": "Navy",
+        "imgSrc": "img/vigvam3.webp"
+    },
+    {
         "title": "Hammock 'Hawaiian'",
         "price": 600,
         "articul": 1040,
@@ -56,20 +63,6 @@
         "imgSrc": "img/vigvam8.jpeg"
     },
     {
-        "title": "Yurt 'Foxy'",
-        "price": 480,
-        "articul": 1994,
-        "color": "Grey and orange",
-        "imgSrc": "img/vigvam9.jpeg"
-    },
-    {
-        "title": "Sunbed 'Mister Brown'",
-        "price": 600,
-        "articul": 1063,
-        "color": "Brown",
-        "imgSrc": "img/vigvam10.jpeg"
-    },
-    {
         "title": "Yurt 'Everest'",
         "price": 600,
         "articul": 1091,
@@ -82,6 +75,13 @@
         "articul": 9854,
         "color": "Beige",
         "imgSrc": "img/vigvam12.jpeg"
+    },
+    {
+        "title": "Wigwam 'Tower'",
+        "price": 780,
+        "articul": 1320,
+        "color": "Brown",
+        "imgSrc": ""
     },
     {
         "title": "Hammock 'Seychelles'",

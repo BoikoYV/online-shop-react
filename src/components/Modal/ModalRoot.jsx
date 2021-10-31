@@ -1,11 +1,13 @@
 import { AddToCartModal } from './addToCartModal/AddToCartModal';
 import { DeleteFromCartModal } from './deleteFromCartModal/DeleteFromCartModal';
-import { ADD_TO_CART, REMOVE_FROM_CART } from '../../store/modal/types';
+import { OrderModal } from './orderModal/OrderModal';
+import { SHOW_ADD_TO_CART_MODAL, SHOW_REMOVE_FROM_CART_MODAL, SHOW_CHECKOUT_MODAL } from '../../store/modal/types';
+import PropTypes from 'prop-types';
 
 const MODAL_COMPONENTS = {
-    [ADD_TO_CART]: AddToCartModal,
-    [REMOVE_FROM_CART]: DeleteFromCartModal,
-    /* other modals */
+    [SHOW_ADD_TO_CART_MODAL]: AddToCartModal,
+    [SHOW_REMOVE_FROM_CART_MODAL]: DeleteFromCartModal,
+    [SHOW_CHECKOUT_MODAL]: OrderModal,
 }
 
 export const ModalRoot = ({ modalType, modalProps }) => {
@@ -14,3 +16,11 @@ export const ModalRoot = ({ modalType, modalProps }) => {
     return <SpecificModal {...modalProps} />
 }
 
+ModalRoot.propTypes = {
+    modalType: PropTypes.string.isRequired,
+    modalProps: PropTypes.object
+}
+
+ModalRoot.defaultProps = {
+    modalProps: {}
+}
