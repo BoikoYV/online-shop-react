@@ -7,8 +7,13 @@
 .cartInner {
     display: grid;
     grid-template-columns: 2.2fr 1fr;
-    grid-template-areas: 'listTitles orderTotal' 'list orderTotal' 'orderForm orderTotal';
+    grid-template-areas: 'listTitles totalBlock' 'list totalBlock' 'orderForm totalBlock';
     column-gap: 100px;
+    row-gap: 20px;
+}
+
+.totalBlock {
+    grid-area: totalBlock;
 }
 
 .cartTitle {
@@ -22,11 +27,11 @@
 .listTitles {
     grid-area: listTitles;
     display: grid;
-    grid-template-columns: 120px  1.5fr repeat(3, 1fr) 50px;
+    grid-template-columns: 120px 1.5fr repeat(3, 1fr) 50px;
     text-align: center;
     column-gap: 3%;
     justify-content: space-between;
-    margin-bottom: 50px;
+    margin-bottom: 34px;
     border-bottom: 1px solid #586ece26;
     padding-bottom: 30px;
 }
@@ -40,4 +45,8 @@
     font-family: "Alumatica", sans-serif;
     font-size: 20px;
     color: #667ad1;
+}
+
+.dogIcon {
+    position: relative;
 }

@@ -3,6 +3,7 @@
     src: local('Alumatica'), url(./fonts/Alumatica-Regular.woff2) format('woff2');
 }
 
+@import url('../src/pages/Cart/DogIcon.css');
 body {
     margin: 0;
     font-family: sans-serif;
@@ -39,6 +40,15 @@ a {
     text-decoration: none;
 }
 
-input:focus, button:focus  {
+input:focus, button:focus {
     outline: 2px solid #667ad1;
+}
+
+.dogContainer {
+    background-color: #3f3456;
+    padding: 15px;
+    height: 220px;
+    border-radius: 15px;
+    position: relative;
+    cursor: pointer;
 }

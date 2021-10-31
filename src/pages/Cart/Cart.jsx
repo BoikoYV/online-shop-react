@@ -12,6 +12,7 @@ import { setCurrentArticul } from '../../store/currentCardArticul/actions';
 import Loader from '../../components/Loader/Loader';
 import { CartForm } from '../../components/CartForm/CartForm';
 import OrderTotals from '../../components/OrderTotals/OrderTotals'
+import DogIcon from './DogIcon';
 
 const Cart = () => {
     const isLoading = useSelector(({ cards }) => cards.isLoading);
@@ -56,7 +57,10 @@ const Cart = () => {
             <CartList
                 cards={filteredCards}
                 onClickHandler={onClickHandler} />
-            <OrderTotals  />
+            <div className={styles.totalBlock}>
+                <OrderTotals />
+                <div className={styles.dogIcon}><DogIcon /></div>
+            </div>
             <CartForm />
         </>)
     }
