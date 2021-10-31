@@ -108,3 +108,8 @@
     justify-content: center;
     margin: 0 auto;
 }
+
+.btn:hover {
+    background-color: rgb(88, 110, 205);
+    color: #fff;
+}

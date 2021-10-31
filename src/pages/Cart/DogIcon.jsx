@@ -7,32 +7,28 @@ const DogIcon = () => {
     const [promoForCopy, setPromoForCopy] = useState(null);
 
     useEffect(() => {
-        let mounted = true;
+        // let mounted = true;
         getPromocodesList()
             .then(data => {
-                if (mounted) {
-                    setPromocodes(data);
-                }
+                // if (mounted) {
+                setPromocodes(data);
+                // }
             })
             .catch(() => {
                 setError(true)
             })
-        return () => mounted = false;
+        // return () => mounted = false;
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const clickHandler = () => {
-        const firstPromocode = promocodes.find(({ promocodeType }) => {
-            return promocodeType === 'guest';
-        })
-
+        const firstPromocode = promocodes.find(({ promocodeType }) => promocodeType === 'guest');
         setPromoForCopy(firstPromocode.code)
     }
 
-
     return (
         <>
-            <div className='bubbleChat'>
+            <div className='bubbleChat' onClick={clickHandler}>
                 <button className='bubbleBtn' >Click to get promocode</button>
             </div>
             <div className="dogContainer" onClick={clickHandler}>
