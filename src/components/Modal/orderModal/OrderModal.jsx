@@ -6,7 +6,8 @@ import CheckoutList from '../../CheckoutList/CheckoutList';
 import { countSubtotal } from '../../../helpers/countSubtotal';
 import { countTotalWithDiscount } from '../../../helpers/countTotalWithDiscount'
 
-export const OrderModal = ({ closeModalHandler, header, closeButton, formValues }) => {
+
+export const OrderModal = ({ header, closeButton, formValues, closeModalHandler }) => {
     const modalIsShown = useSelector(({ modal }) => modal.checkoutModalIsOpen);
     const classHide = !modalIsShown ? styles.hide : '';
     const cardsList = useSelector(({ cards }) => cards.cards);
@@ -27,9 +28,9 @@ export const OrderModal = ({ closeModalHandler, header, closeButton, formValues 
 
     const dataArr = [];
     if (formValues) {
+        let i = 0;
         for (const [key, value] of Object.entries(formValues)) {
-            console.log(`${key}: ${value}`);
-            dataArr.push(<li>
+            dataArr.push(<li key={i++}>
                 <span className={orderModalStyles.filedName}>{normalizeInputKeys(key)}</span>: {value}
             </li>)
         }
@@ -39,7 +40,6 @@ export const OrderModal = ({ closeModalHandler, header, closeButton, formValues 
     const total = countTotalWithDiscount(subTotal, discount);
 
     return (
-
         <>
             <div className={`${styles.modalBox} ${modalIsShown ? '' : styles.hide}`}>
                 <div className={`${styles.header} ${orderModalStyles.header}`}>
@@ -63,7 +63,7 @@ export const OrderModal = ({ closeModalHandler, header, closeButton, formValues 
                         <CheckoutList cards={filteredCards} />
                     </div>
 
-                    <p className={orderModalStyles.discount}><span>Discount:</span><span>{discount}%</span></p>
+                    <p className={orderModalStyles.discount}><span>Discount:</span><span>{discount ? discount : '0'}%</span></p>
                     <p className={orderModalStyles.total}><span>Total:</span><span>{total} UAH</span></p>
                 </div>
                 <button className={orderModalStyles.btn} onClick={() => { closeModalHandler() }}>Ok</button>

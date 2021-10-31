@@ -22,11 +22,11 @@ const syncMiddleware = store => next => action => {
         const { favourites } = store.getState();
         localStorage.setItem('favourites', JSON.stringify(favourites))
     }
-    if (['ADD_TO_CART', 'REMOVE_FROM_CART', 'DECREASE_PRODUCT_QUANTITY', 'INCREASE_PRODUCT_QUANTITY'].includes(action.type)) {
+    if (['ADD_TO_CART', 'REMOVE_FROM_CART', 'DECREASE_PRODUCT_QUANTITY', 'INCREASE_PRODUCT_QUANTITY', 'CHECKOUT_ORDER'].includes(action.type)) {
         const { cardsInCart } = store.getState();
         localStorage.setItem('cardsInCart', JSON.stringify(cardsInCart))
     }
-    if (['ADD_DISCOUNT'].includes(action.type)) {
+    if (['ADD_DISCOUNT','REMOVE_DISCOUNT'].includes(action.type)) {
         const { discount } = store.getState();
         localStorage.setItem('discount', JSON.stringify(discount))
     }

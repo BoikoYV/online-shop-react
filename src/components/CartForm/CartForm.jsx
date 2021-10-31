@@ -10,18 +10,21 @@ import { useDispatch } from 'react-redux';
 import { ModalRoot } from '../../components/Modal/ModalRoot';
 import { SHOW_CHECKOUT_MODAL } from '../../store/modal/types';
 import { setCheckoutModalShow, setModalClose } from '../../store/modal/actions';
+import { checkoutOrder } from '../../store/cart/actions';
+import { removeDiscount } from '../../store/cart/actions';
 
-export const CartForm = ( cards) => {
+export const CartForm = (cards) => {
     const dispatch = useDispatch();
     const [values, setvalues] = useState(null);
 
     const handleFormSubmit = (values, { setSubmitting }) => {
         setvalues(values);
         dispatch(setCheckoutModalShow(SHOW_CHECKOUT_MODAL))
-
     }
     const closeModalHandler = () => {
         dispatch(setModalClose(SHOW_CHECKOUT_MODAL));
+        dispatch(checkoutOrder());
+        dispatch(removeDiscount());
     }
     return (
         <>

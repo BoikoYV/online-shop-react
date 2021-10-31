@@ -8,9 +8,7 @@ export const cartReducer = ((state = [], action) => {
         case 'REMOVE_FROM_CART':
             return state.filter((item) => item.id !== action.payload);
         case 'CHECKOUT_ORDER':
-            console.log(state);
             return [];
-
         case 'INCREASE_PRODUCT_QUANTITY':
             return state.map((item) => {
                 return item.id === action.payload ?
@@ -30,10 +28,12 @@ export const cartReducer = ((state = [], action) => {
     }
 })
 
-export const discountReducer = ((state = [], action) => {
+export const discountReducer = ((state = null, action) => {
     switch (action.type) {
         case 'ADD_DISCOUNT':
             return action.payload;
+        case 'REMOVE_DISCOUNT':
+            return null;
         default:
             return state
     }

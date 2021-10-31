@@ -1,4 +1,4 @@
-import { ADD_TO_CART, REMOVE_FROM_CART, CHECKOUT_ORDER, INCREASE_PRODUCT_QUANTITY, DECREASE_PRODUCT_QUANTITY, ADD_DISCOUNT } from './types';
+import { ADD_TO_CART, REMOVE_FROM_CART, CHECKOUT_ORDER, INCREASE_PRODUCT_QUANTITY, DECREASE_PRODUCT_QUANTITY, ADD_DISCOUNT, REMOVE_DISCOUNT } from './types';
 
 export const addToCart = (articul) => {
     return {
@@ -33,9 +33,16 @@ export const decreaseProductQuantity = (articul) => {
         payload: articul
     }
 }
+
 export const addDiscount = (discount) => {
     return {
         type: ADD_DISCOUNT,
         payload: discount
+    }
+}
+
+export const removeDiscount = () => {
+    return {
+        type: REMOVE_DISCOUNT
     }
 }
