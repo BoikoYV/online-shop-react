@@ -33,6 +33,7 @@ Online store of houses for pets consists of 3 pages:
 
 - checkout modal with information about the order and customer (if there is a lot of information in the modal window, it can be scrolled);
 - form of order data information (name , number , where and how to deliver) with validation;
+- unit tests of most used components: modal and buttons, using Jest and testing-library;
 
 #### 🎥 App video demo:
 
@@ -41,7 +42,5 @@ https://user-images.githubusercontent.com/68449997/139599195-04bb8141-513f-459d-
 
 
 #### 📒The following features are planned to be added:
-
-- unit test coverage;
 - page of 1 product;
 - make adaptive for all pages;
