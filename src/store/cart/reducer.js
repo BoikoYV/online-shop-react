@@ -29,3 +29,12 @@ export const cartReducer = ((state = [], action) => {
 
     }
 })
+
+export const discountReducer = ((state = [], action) => {
+    switch (action.type) {
+        case 'ADD_DISCOUNT':
+            return action.payload;
+        default:
+            return state
+    }
+})

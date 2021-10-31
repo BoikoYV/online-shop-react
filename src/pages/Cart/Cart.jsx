@@ -55,7 +55,7 @@ const Cart = () => {
             <CartList
                 cards={filteredCards}
                 onClickHandler={onClickHandler} />
-            <OrderTotals />
+            <OrderTotals  />
             <CartForm />
         </>)
     }

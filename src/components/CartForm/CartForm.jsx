@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Formik, Form, FieldArray } from 'formik';
 import styles from './CartForm.module.css';
 import btnStyles from '../Button/Button.module.css';
@@ -6,26 +6,23 @@ import { BasicFormSchema } from './BasicFormSchema';
 import { formDataFields } from './formDataFields';
 import { FormikInputBlock } from './formFields/FormikInputBlock';
 import { NumberFormatInputBlock } from './formFields/NumberFormatInputBlock'
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { ModalRoot } from '../../components/Modal/ModalRoot';
 import { SHOW_CHECKOUT_MODAL } from '../../store/modal/types';
 import { setCheckoutModalShow, setModalClose } from '../../store/modal/actions';
 
-export const CartForm = (changeModalHandler) => {
+export const CartForm = ( cards) => {
     const dispatch = useDispatch();
-    const cardsInCart = useSelector(({ cardsInCart }) => cardsInCart);
+    const [values, setvalues] = useState(null);
 
     const handleFormSubmit = (values, { setSubmitting }) => {
-        console.log('submit');
-        console.log(values);
-        console.log(cardsInCart);
+        setvalues(values);
         dispatch(setCheckoutModalShow(SHOW_CHECKOUT_MODAL))
 
     }
     const closeModalHandler = () => {
         dispatch(setModalClose(SHOW_CHECKOUT_MODAL));
     }
-
     return (
         <>
             <div className={styles.formContainer}>
@@ -62,13 +59,13 @@ export const CartForm = (changeModalHandler) => {
                 </Formik>
             </div>
             <ModalRoot modalType={SHOW_CHECKOUT_MODAL}
-                    modalProps={{
-                        // actions: createModalButtons('Delete', 'Cancel', deleteFromCartHandler, closeModalHandler, currrentCardArticul.currentArticul),
-                        closeModalHandler: () => { closeModalHandler() },
-                        header: 'Checkout',
-                        text: 'Checkout text',
-                        closeButton: true,
-                    }} />
+                modalProps={{
+                    closeModalHandler: () => { closeModalHandler() },
+                    header: 'Your order has been received',
+                    closeButton: true,
+                    cards: { cards },
+                    formValues: values ? values : null
+                }} />
         </>
     )
 };

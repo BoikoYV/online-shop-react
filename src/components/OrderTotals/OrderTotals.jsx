@@ -1,16 +1,21 @@
 import { useEffect, useState } from "react";
 import styles from './OrderTotals.module.css';
 import { getPromocodesList } from '../../api/getPromocodesList'
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Formik, Form, Field } from 'formik';
+import { countSubtotal } from '../../helpers/countSubtotal';
+import { countTotalWithDiscount } from '../../helpers/countTotalWithDiscount'
+import { addDiscount } from "../../store/cart/actions";
 
 const OrderTotals = () => {
+    const dispatch = useDispatch();
     const cardsInCart = useSelector(({ cardsInCart }) => cardsInCart);
     const [promocodes, setPromocodes] = useState(null);
     const [setError] = useState(false);
     const cardsList = useSelector(({ cards }) => cards.cards);
-    const [discount, setDiscount] = useState(null);
-
+    const discount = useSelector(({ discount }) => discount);
+    
+    
     useEffect(() => {
         let mounted = true;
         getPromocodesList()
@@ -26,20 +31,14 @@ const OrderTotals = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const subtotalArr = cardsInCart.map(({ id, count }) => {
-        const currentCard = cardsList.find(({ articul }) => articul === id);
-        return currentCard && count * currentCard.price;
-    })
-    const subTotal = subtotalArr.reduce((sum, value) => {
-        return sum + value
-    }, 0);
-
-    const total = subTotal * (1 - discount / 100);
+    const subTotal = countSubtotal(cardsInCart, cardsList)
+    const total = countTotalWithDiscount(subTotal, discount);
 
     const handleSubmit = (values, { setSubmitting }) => {
         const { promocode } = values;
         const availablePromocode = promocodes.find(({ code }) => code === promocode.trim());
-        availablePromocode && setDiscount(availablePromocode.discountInPercentage);
+        availablePromocode &&
+            dispatch(addDiscount(availablePromocode.discountInPercentage));
     }
 
     return (
@@ -47,7 +46,7 @@ const OrderTotals = () => {
             <Formik
                 initialValues={{ promocode: '' }}
                 onSubmit={handleSubmit}>
-                {({ isSubmitting }) => (
+                {() => (
 
                     <Form className={styles.promocodeForm}>
                         <p className={styles.promocodeFormTitle}>Apply a promo code</p>

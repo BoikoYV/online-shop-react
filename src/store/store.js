@@ -5,6 +5,7 @@ import { cartReducer } from './cart/reducer';
 import { cardsReducer } from './cards/reducer';
 import { modalReducer } from './modal/reducer';
 import { currentArticulReducer } from './currentCardArticul/reducer';
+import { discountReducer } from './cart/reducer';
 
 const rootReducer = combineReducers({
     modal: modalReducer,
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
     favourites: favouritesReducer,
     cardsInCart: cartReducer,
     currrentCardArticul: currentArticulReducer,
+    discount: discountReducer,
 })
 
 const syncMiddleware = store => next => action => {
@@ -24,16 +26,28 @@ const syncMiddleware = store => next => action => {
         const { cardsInCart } = store.getState();
         localStorage.setItem('cardsInCart', JSON.stringify(cardsInCart))
     }
+    if (['ADD_DISCOUNT'].includes(action.type)) {
+        const { discount } = store.getState();
+        localStorage.setItem('discount', JSON.stringify(discount))
+    }
     return result
 }
 
 let initialState = {};
 const favouritesFromLS = localStorage.getItem('favourites');
 const cardsInCartFromLS = localStorage.getItem('cardsInCart');
+const discountFromLS = localStorage.getItem('discount');
 
 if (favouritesFromLS) {
     try {
         initialState = { ...initialState, favourites: JSON.parse(favouritesFromLS) }
+    } catch (err) {
+        console.error(err);
+    }
+}
+if (discountFromLS) {
+    try {
+        initialState = { ...initialState, discount: JSON.parse(discountFromLS) }
     } catch (err) {
         console.error(err);
     }
