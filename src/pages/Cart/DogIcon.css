@@ -463,6 +463,10 @@
     font-weight: 700;
 }
 
+.bubbleBtn:focus {
+    outline: none;
+}
+
 .dogPromocode {
     z-index: 10;
     position: absolute;

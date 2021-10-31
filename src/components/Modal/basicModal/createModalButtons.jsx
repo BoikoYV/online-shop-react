@@ -1,5 +1,6 @@
 import modalStyles from './Modal.module.css';
 import Button from '../../Button/Button';
+import PropTypes from 'prop-types';
 
 const createModalButtons = (text1, text2, okBtnFunc, cancelBtnFunc, currentArticul) => {
     return (
@@ -17,5 +18,19 @@ const createModalButtons = (text1, text2, okBtnFunc, cancelBtnFunc, currentArtic
         </>
     )
 }
+
+createModalButtons.propTypes = {
+    text1: PropTypes.string,
+    text2: PropTypes.string,
+    okBtnFunc: PropTypes.func.isRequired,
+    cancelBtnFunc: PropTypes.func.isRequired,
+    currentArticul: PropTypes.string.isRequired,
+}
+
+createModalButtons.defaultProps = {
+    text1: 'Ok',
+    text2: 'Cancel'
+}
+
 
 export default createModalButtons;
