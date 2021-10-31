@@ -43,9 +43,8 @@ const Cart = () => {
     }
 
     let content;
-    if (isLoading) {
-        content = (<Loader />)
-    } else if (hasError) {
+
+    if (hasError) {
         content = (<div>Sorry, error</div>)
     } else {
         const filteredCards = cardsList.filter(({ articul }) => {
@@ -69,6 +68,7 @@ const Cart = () => {
         <div className={styles.cartSection}>
             <div className={styles.container}>
                 <h2 className={styles.cartTitle}>1. Products  - {cardsInCart.length}</h2>
+                {isLoading ? <Loader /> : ''}
                 {cardsInCart.length >= 1 ?
                     <div className={styles.cartInner}>
                         <ul className={styles.listTitles}>
