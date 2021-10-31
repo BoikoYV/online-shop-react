@@ -24,10 +24,24 @@ Online store of houses for pets consists of 3 pages:
 - clarifying modal windows before adding and removing products;
 - showing skeleton loader using `react-content-loader`;
 - substitute the default image if the product doesn`t have photo;
+- selection products` count in the cart and calculation of the total amount of this product;
+- block with general information about the order, the total amount;
+- the ability to enter a promotional code for a specific discount;
+- get guest promocode by clicking on the animated dog;
+
+<img src="https://user-images.githubusercontent.com/68449997/139599093-54e25a8a-697a-429f-a675-58fd1f21b689.png" height="150">
+
+- checkout modal with information about the order and customer (if there is a lot of information in the modal window, it can be scrolled);
+- form of order data information (name , number , where and how to deliver) with validation;
+
+#### 🎥 App video demo:
+
+https://user-images.githubusercontent.com/68449997/139599195-04bb8141-513f-459d-a7bc-87badf1f7de8.mp4
+
+
 
 #### 📒The following features are planned to be added:
-- selection products` count in the cart and calculation of the total amount of this product;
-- adding a block with general information about the order, the total amount;
-- the ability to enter a promotional code for a specific discount;
-- receiving in the form of order data information (name , number , where and how to deliver);
+
 - unit test coverage;
+- page of 1 product;
+- make adaptive for all pages;
