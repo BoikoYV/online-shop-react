@@ -24,6 +24,6 @@ export const BasicFormSchema = Yup.object().shape({
         .matches(/^[+]?38\s[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{2}[-\s.]?[0-9]{2}$/im, "Invalid phone number format")
         .required('Required field'),
     address: Yup.string()
-        .min(5, 'The address must be longer than 5 characters')
+        .min(3, 'The address must be longer than 3 characters')
         .required('Required field')
 });
