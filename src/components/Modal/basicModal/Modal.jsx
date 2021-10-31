@@ -29,7 +29,9 @@ Modal.propTypes = {
     closeModalHandler: PropTypes.func.isRequired,
 };
 Modal.defaultProps = {
-    actions: null
+    actions: null,
+    isShown: false,
+    closeButton:true
 }
 
 export default Modal;
