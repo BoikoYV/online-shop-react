@@ -20,7 +20,7 @@ Online store of houses for pets consists of 3 pages:
 #### 📘Functional:
 - interaction with the cart (adding and removing products);
 - interaction with favorites (adding and removing products);
-- synchronization of products in the cart, favorites with the Local storage;
+- synchronization of products in the cart, favorites, discount(by entering promocde before purchase) with the Local storage;
 - clarifying modal windows before adding and removing products;
 - showing skeleton loader using `react-content-loader`;
 - substitute the default image if the product doesn`t have photo;
