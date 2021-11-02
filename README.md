@@ -43,4 +43,5 @@ https://user-images.githubusercontent.com/68449997/139599195-04bb8141-513f-459d-
 
 #### 📒The following features are planned to be added:
 - page of 1 product;
+- main page;
 - make adaptive for all pages;
