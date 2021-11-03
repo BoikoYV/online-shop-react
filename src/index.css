@@ -3,7 +3,6 @@
     src: local('Alumatica'), url(./fonts/Alumatica-Regular.woff2) format('woff2');
 }
 
-@import url('../src/pages/Cart/DogIcon.css');
 body {
     margin: 0;
     font-family: sans-serif;

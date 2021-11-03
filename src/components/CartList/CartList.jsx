@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import styles from './CartList.module.css';
+import styles from './CartList.module.scss';
 import CardInCart from '../CardInCart/CardInCart';
 
 const CartList = ({ cards, onClickHandler }) => {

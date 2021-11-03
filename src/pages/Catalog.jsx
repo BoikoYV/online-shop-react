@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import styles from '../App/App.module.css';
+import styles from '../App/App.module.scss';
 import { fetchCardsList } from '../store/cards/actions'
 import createModalButtons from '../components/Modal/basicModal/createModalButtons';
 import CardsList from '../components/CardsList/CardsList';

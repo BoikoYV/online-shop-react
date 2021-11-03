@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import styles from './OrderTotals.module.css';
+import styles from './OrderTotals.module.scss';
 import { getPromocodesList } from '../../api/getPromocodesList'
 import { useSelector, useDispatch } from 'react-redux';
 import { Formik, Form, Field } from 'formik';
@@ -14,8 +14,8 @@ const OrderTotals = () => {
     const [setError] = useState(false);
     const cardsList = useSelector(({ cards }) => cards.cards);
     const discount = useSelector(({ discount }) => discount);
-    
-    
+
+
     useEffect(() => {
         let mounted = true;
         getPromocodesList()

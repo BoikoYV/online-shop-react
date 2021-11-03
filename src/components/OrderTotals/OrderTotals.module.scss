@@ -50,6 +50,9 @@
     padding: 20px;
     margin-bottom: 30px;
     box-shadow: 0px 0px 10px 1px hsl(245deg, 76%, 97%);
+    @media (max-width: 1080px) {
+        margin-bottom: 0;
+    }
 }
 
 .totalsTitle {

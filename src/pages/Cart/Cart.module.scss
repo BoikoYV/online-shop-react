@@ -1,0 +1,93 @@
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 10px;
+}
+
+.cartInner {
+    display: grid;
+    grid-template-columns: 2.2fr 1fr;
+    grid-template-areas: "listTitles totalBlock" "list totalBlock" "orderForm totalBlock";
+    column-gap: 100px;
+    row-gap: 20px;
+    @media (max-width: 1180px) {
+        column-gap: 55px;
+        grid-template-columns: 2.6fr 1fr;
+    }
+    @media (max-width: 1080px) {
+        grid-template-areas: "listTitles" "list" "totalBlock" "orderForm";
+        grid-template-columns: 1fr;
+        row-gap: 40px;
+    }
+    @media (max-width: 725px) {
+        grid-template-areas: "list" "totalBlock" "orderForm";
+    }
+}
+
+.totalBlock {
+    grid-area: totalBlock;
+    @media (max-width: 1080px) {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 12%;
+    }
+    @media (max-width: 840px) {
+        grid-template-columns: 1.2fr 1fr;
+        column-gap: 5%;
+    }
+    @media (max-width: 725px) {
+        grid-template-columns: minmax(min-content, 450px);
+        row-gap: 40px;
+        column-gap: 0;
+        justify-content: center;
+    }
+}
+
+.cartTitle {
+    margin-bottom: 40px;
+    font-family: "Alumatica", sans-serif;
+    color: #667ad1;
+    font-weight: 700;
+    font-size: 20px;
+    @media (max-width: 725px) {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+}
+
+.listTitles {
+    grid-area: listTitles;
+    display: grid;
+    grid-template-columns: 120px 1.5fr repeat(3, 1fr) 50px;
+    text-align: center;
+    column-gap: 3%;
+    justify-content: space-between;
+    margin-bottom: 34px;
+    border-bottom: 1px solid #586ece26;
+    padding-bottom: 30px;
+
+    @media (max-width: 1080px) {
+        margin-bottom: 0;
+    }
+    @media (max-width: 725px) {
+        display: none;
+    }
+}
+
+.cartSection {
+    padding: 30px 0;
+}
+
+.noItemsTitle {
+    font-weight: 500;
+    font-family: "Alumatica", sans-serif;
+    font-size: 20px;
+    color: #667ad1;
+}
+
+.dogIcon {
+    position: relative;
+    @media (max-width: 1080px) {
+        align-self: end;
+    }
+}

@@ -7,6 +7,9 @@
     grid-area: dog;
     right: 20%;
     transform: scale(0.8);
+    @media (max-width: 725px) {
+        transform: scale(1);
+    }
 }
 
 .heart {
@@ -24,10 +27,13 @@
         transform: scale(0.75) rotate(35deg);
         opacity: 1;
     }
-    5%, 15%, 25% {
+    5%,
+    15%,
+    25% {
         transform: scale(1) rotate(35deg);
     }
-    10%, 20% {
+    10%,
+    20% {
         transform: scale(0.75) rotate(35deg);
     }
     70% {
@@ -63,7 +69,8 @@
     animation: heart-beat 2s ease-out infinite;
 }
 
-.heart:before, .heart:after {
+.heart:before,
+.heart:after {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -107,7 +114,8 @@
     z-index: 4;
 }
 
-.cheast:after, .cheast:before {
+.cheast:after,
+.cheast:before {
     position: absolute;
     content: "";
     width: 7%;
@@ -160,10 +168,12 @@
 }
 
 @keyframes dog-tail {
-    from, to {
+    from,
+    to {
         transform: rotate(10deg);
     }
-    50%, 60% {
+    50%,
+    60% {
         transform: rotate(70deg) translateX(10px) translateY(2px);
     }
 }
@@ -181,7 +191,8 @@
 }
 
 @keyframes dog-tail-before {
-    from, to {
+    from,
+    to {
         transform: translateX(0);
     }
     50% {
@@ -210,7 +221,8 @@
     }
 }
 
-.legs__front, .legs__back {
+.legs__front,
+.legs__back {
     width: 10%;
     height: 100%;
     background-color: #f79e38;
@@ -219,7 +231,8 @@
     border-bottom-left-radius: 100%;
 }
 
-.legs__front:after, .legs__back:after {
+.legs__front:after,
+.legs__back:after {
     content: "";
     position: absolute;
     top: 50%;
@@ -263,7 +276,8 @@
     z-index: 6;
 }
 
-.face:after, .face:before {
+.face:after,
+.face:before {
     content: "";
     position: absolute;
     background-color: #f79e38;
@@ -303,11 +317,13 @@
 }
 
 @keyframes dog-eye {
-    from, to {
+    from,
+    to {
         animation-timing-function: step-end;
         opacity: 1;
     }
-    50%, 55% {
+    50%,
+    55% {
         animation-timing-function: step-start;
         opacity: 0;
     }
@@ -448,7 +464,7 @@
     content: "";
     position: absolute;
     bottom: -6px;
-    transform: rotate( 45deg);
+    transform: rotate(45deg);
     border-radius: 2px;
     left: 40px;
     z-index: 5;

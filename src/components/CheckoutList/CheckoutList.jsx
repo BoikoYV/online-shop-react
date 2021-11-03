@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import styles from './CheckoutList.module.css';
+import styles from './CheckoutList.module.scss';
 import CardInCart from '../CardInCart/CardInCart';
 
 const CheckoutList = ({ cards }) => {

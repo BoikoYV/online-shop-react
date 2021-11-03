@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styles from './Modal.module.css';
+import styles from './Modal.module.scss';
 
 const Modal = ({ isShown, header, text, actions, closeButton, closeModalHandler }) => {
     const classHide = !isShown ? styles.hide : '';
@@ -31,7 +31,7 @@ Modal.propTypes = {
 Modal.defaultProps = {
     actions: null,
     isShown: false,
-    closeButton:true
+    closeButton: true
 }
 
 export default Modal;

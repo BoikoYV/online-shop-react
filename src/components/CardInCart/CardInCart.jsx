@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styles from './CardInCart.module.css';
+import styles from './CardInCart.module.scss';
 import TrashIcon from './TrashIcon';
 import { useDispatch, useSelector } from 'react-redux';
 import { increaseProductQuantity, decreaseProductQuantity } from '../../store/cart/actions';
-import CheckoutList from '../CheckoutList/CheckoutList.module.css';
+import CheckoutList from '../CheckoutList/CheckoutList.module.scss';
 
 const NOIMGSRC = 'img/notfound.png';
 const CardInCart = ({ articul, imgSrc, title, color, price, isPriceShow, onClickHandler, hasQuantityBtns, hasTrashIcon, orderModalStyles }) => {

@@ -1,5 +1,5 @@
 import { ErrorMessage, useField } from 'formik';
-import styles from '../CartForm.module.css';
+import styles from '../CartForm.module.scss';
 import NumberFormat from "react-number-format";
 import PropTypes from 'prop-types';
 

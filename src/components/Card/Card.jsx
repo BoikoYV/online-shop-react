@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styles from './Card.module.css';
+import styles from './Card.module.scss';
 import FavouriteIcon from './FavouriteIcon';
 import Button from '../Button/Button';
 const NOIMGSRC = 'img/notfound.png';
