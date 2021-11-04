@@ -1,5 +1,6 @@
 import { useState, useEffect, } from 'react';
 import { getPromocodesList } from '../../api/getPromocodesList'
+import './DogIcon.scss';
 
 const DogIcon = () => {
     const [promocodes, setPromocodes] = useState(null);
@@ -7,17 +8,13 @@ const DogIcon = () => {
     const [promoForCopy, setPromoForCopy] = useState(null);
 
     useEffect(() => {
-        // let mounted = true;
         getPromocodesList()
             .then(data => {
-                // if (mounted) {
                 setPromocodes(data);
-                // }
             })
             .catch(() => {
                 setError(true)
             })
-        // return () => mounted = false;
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 

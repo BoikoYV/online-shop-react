@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { fetchCardsList } from '../../store/cards/actions'
-import styles from './Cart.module.css';
+import styles from './Cart.module.scss';
 import CartList from '../../components/CartList/CartList';
 import createModalButtons from '../../components/Modal/basicModal/createModalButtons';
 import { useDispatch, useSelector } from 'react-redux';

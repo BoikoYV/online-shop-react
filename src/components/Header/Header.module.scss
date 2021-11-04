@@ -19,6 +19,9 @@
 .item {
     color: inherit;
     font-weight: 500;
+    &:not(:last-child) {
+        margin-right: 20px;
+    }
 }
 
 .item a {
@@ -26,12 +29,6 @@
     padding-bottom: 10px;
     transition: 0.3s;
     position: relative;
-}
-
-.item a::before {}
-
-.item:not(:last-child) {
-    margin-right: 20px;
 }
 
 .container {
@@ -44,23 +41,25 @@
     padding-top: 10px;
     padding-bottom: 10px;
     box-shadow: 0px 0px 10px 1px hsl(0deg, 0%, 82%, 49%);
+    @media (max-width: 725px) {
+        margin-bottom: 20px;
+    }
 }
 
 .active {
     color: rgb(88, 110, 205);
     position: relative;
     transition: 0.3s;
-}
 
-.active::before {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    height: 2px;
-    background-color: rgb(88, 110, 205);
-    content: "";
-    animation: line .3s forwards;
-    /* animation-fill-mode:  */
+    &::before {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        height: 2px;
+        background-color: rgb(88, 110, 205);
+        content: "";
+        animation: line 0.3s forwards;
+    }
 }
 
 @keyframes line {

@@ -23,7 +23,7 @@
     outline: none;
 }
 
-.promocodeFieldContainer .promocodeField:focus{
+.promocodeFieldContainer .promocodeField:focus {
     outline: 2px solid #667ad1;
 }
 
@@ -37,11 +37,13 @@
     background-color: rgb(190, 200, 244);
     justify-content: center;
     position: absolute;
-}
-
-.promocodeBtn:hover {
-    background-color: rgb(88, 110, 205);
-    color: #fff;
+    @media (max-width: 478px) {
+        right: -3px;
+    }
+    &:hover {
+        background-color: rgb(88, 110, 205);
+        color: #fff;
+    }
 }
 
 .totalsContainer {
@@ -50,6 +52,9 @@
     padding: 20px;
     margin-bottom: 30px;
     box-shadow: 0px 0px 10px 1px hsl(245deg, 76%, 97%);
+    @media (max-width: 1080px) {
+        margin-bottom: 0;
+    }
 }
 
 .totalsTitle {
@@ -63,24 +68,22 @@
 .totalsPrices {
     display: flex;
     justify-content: space-between;
-}
-
-.totalsPrices:last-child {
-    margin-top: 20px;
-    padding-top: 20px;
-    position: relative;
-    margin-bottom: 0;
-}
-
-.totalsPrices:last-child::before {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    content: '';
-    width: 100%;
-    height: 1px;
-    background-color: rgb(119 137 214);
+    &:last-child {
+        margin-top: 20px;
+        padding-top: 20px;
+        position: relative;
+        margin-bottom: 0;
+        &::before {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            content: "";
+            width: 100%;
+            height: 1px;
+            background-color: rgb(119 137 214);
+        }
+    }
 }
 
 .totalPrice {

@@ -1,5 +1,6 @@
 .modalBox {
-    width: 520px;
+    width: 80%;
+    max-width: 500px;
     position: absolute;
     z-index: 21;
     background-color: #fefefe;
@@ -21,24 +22,40 @@
 .header {
     justify-content: space-between;
     align-items: center;
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 20px;
+    grid-template-areas: "title closeBtn";
     padding: 20px;
     border-bottom: 2px solid #a795ff;
     background-color: #d3cdf9;
     border-radius: 10px 10px 0 0;
+
+    @media (max-width: 725px) {
+        grid-template-areas: ". closeBtn" " title title";
+        row-gap: 20px;
+    }
 }
 
 .headerTitle {
     font-size: 18px;
+    grid-area: title;
+    text-align: center;
 }
 
 .closeBtn {
-    background-image: url('./closeBtn.svg');
+    background-image: url("./closeBtn.svg");
     background-size: contain;
     background-position: center;
+    background-repeat: no-repeat;
     width: 20px;
     height: 20px;
     padding: 10px;
+    grid-area: closeBtn;
+
+    @media (max-width:478px) {
+        background-size: 15px 15px;
+
+    }
 }
 
 .text {

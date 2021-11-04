@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import CardsList from '../../components/CardsList/CardsList';
 import createModalButtons from '../../components/Modal/basicModal/createModalButtons';
-import styles from './Favourites.module.css';
+import styles from './Favourites.module.scss';
 import { fetchCardsList } from '../../store/cards/actions'
 import { addToCart } from '../../store/cart/actions';
 import { SHOW_ADD_TO_CART_MODAL } from '../../store/modal/types';

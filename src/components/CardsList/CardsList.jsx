@@ -1,7 +1,7 @@
 import React from 'react';
 import Card from '../Card/Card';
 import PropTypes from 'prop-types';
-import styles from './CardsList.module.css';
+import styles from './CardsList.module.scss';
 
 
 const CardsList = ({ cards, onClickHandler, changeFavouriteHandler, favouritesCardsArr }) => {

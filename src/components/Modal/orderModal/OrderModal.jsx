@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
-import styles from '../basicModal/Modal.module.css';
+import styles from '../basicModal/Modal.module.scss';
 import CheckoutIcon from './CheckoutIcon';
-import orderModalStyles from './OrderModal.module.css';
+import orderModalStyles from './OrderModal.module.scss';
 import CheckoutList from '../../CheckoutList/CheckoutList';
 import { countSubtotal } from '../../../helpers/countSubtotal';
 import { countTotalWithDiscount } from '../../../helpers/countTotalWithDiscount'

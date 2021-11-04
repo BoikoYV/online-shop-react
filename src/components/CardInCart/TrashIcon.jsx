@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './CardInCart.module.css';
+import styles from './CardInCart.module.scss';
 
 const TrashIcon = () => {
     return (

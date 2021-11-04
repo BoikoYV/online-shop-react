@@ -1,5 +1,5 @@
 import React from 'react';
-import orderModalStyles from './OrderModal.module.css';
+import orderModalStyles from './OrderModal.module.scss';
 
 const CheckoutIcon = () => {
     return (

@@ -1,4 +1,4 @@
-import modalStyles from './Modal.module.css';
+import modalStyles from './Modal.module.scss';
 import Button from '../../Button/Button';
 import PropTypes from 'prop-types';
 

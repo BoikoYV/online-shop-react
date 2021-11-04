@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Formik, Form, FieldArray } from 'formik';
-import styles from './CartForm.module.css';
-import btnStyles from '../Button/Button.module.css';
+import styles from './CartForm.module.scss';
+import btnStyles from '../Button/Button.module.scss';
 import { BasicFormSchema } from './BasicFormSchema';
 import { formDataFields } from './formDataFields';
 import { FormikInputBlock } from './formFields/FormikInputBlock';
