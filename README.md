@@ -1,6 +1,6 @@
-### Online Store of goods for pets 🐶🏠
+### Adaptive Online Store of goods for pets 🐶🏠
 
-#### React (React Roating, React Hooks), Redux (Thunk)
+#### React (React Roating, React Hooks), Redux (Thunk), Formik, Yup, SCSS, CSS modules
 
 
 *📝The project is still in development*
@@ -9,13 +9,21 @@
 
 ### 📚About the project
 
-Online store of houses for pets consists of 3 pages:
+Online store of houses for pets consists of 4 pages:
 - Home (Catalog);
 - Cart;
 - Favorites;
+- 404;
 
+#### 💻 Home page
 ![image](https://user-images.githubusercontent.com/68449997/138617518-7d8facff-1b8e-4a78-aea4-7927828eec42.png)
 
+---
+
+#### 🔎 404 page
+![image](https://user-images.githubusercontent.com/68449997/140306025-9063cbd2-b0d0-478a-81a9-c2aaf1b8d46b.png)
+
+---
 
 #### 📘Functional:
 - interaction with the cart (adding and removing products);
@@ -43,5 +51,5 @@ https://user-images.githubusercontent.com/68449997/139599195-04bb8141-513f-459d-
 
 #### 📒The following features are planned to be added:
 - page of 1 product;
-- main page;
-- make adaptive for all pages;
+- main page with slider;
+- change skeleton loader grid on mobile devices
