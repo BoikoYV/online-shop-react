@@ -1,0 +1,62 @@
+.errorContainer {
+    font-family: "Alumatica";
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-top: 10px;
+    grid-column-gap: 20px;
+    column-gap: 20px;
+    align-content: center;
+    justify-content: center;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    width: 100%;
+    left: 50%;
+    grid-template-rows: 50vh;
+    overflow: hidden;
+}
+
+.imgContainer {
+    background-image: url("./korgi.jpeg");
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.errorNum {
+    font-size: 100px;
+    font-weight: 700;
+    margin: 0;
+    margin-bottom: 40px;
+    @media (max-width: 600px) {
+        font-size: 60px;
+        margin-bottom: 20px;
+    }
+}
+
+.errorMessage {
+    font-size: 25px;
+    margin: 0;
+    @media (max-width: 600px) {
+        font-size: 14px;
+    }
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 10px;
+    height: 80vh;
+    position: relative;
+    @media (max-width: 600px) {
+        
+    }
+}
+
+.errorTextBlock {
+    justify-self: right;
+    text-align: center;
+    align-self: center;
+    @media (max-width: 600px) {
+        align-self: start;
+    }
+}
