@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import styles from './CheckoutList.module.scss';
 import CardInCart from '../CardInCart/CardInCart';
 
-const CheckoutList = ({ cards }) => {
+const CheckoutList = ({ cards, modalCard }) => {
 
     let cardsComponents = cards.map(({ title, price, articul, imgSrc, color, orderModalStyles }) => {
         return (
@@ -28,10 +28,12 @@ const CheckoutList = ({ cards }) => {
 
 CheckoutList.propTypes = {
     cards: PropTypes.array,
+    modalCard: PropTypes.bool
 }
 
 CheckoutList.defaultProps = {
-    cards: []
+    cards: [],
+    modalCard:false
 }
 
 export default CheckoutList;

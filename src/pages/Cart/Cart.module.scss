@@ -16,7 +16,7 @@
     }
     @media (max-width: 1080px) {
         grid-template-areas: "listTitles" "list" "totalBlock" "orderForm";
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(300px, 1fr);
         row-gap: 40px;
     }
     @media (max-width: 725px) {

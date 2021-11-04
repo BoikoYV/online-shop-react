@@ -47,7 +47,7 @@
     column-gap: 20px;
     margin-bottom: 15px;
     @media (max-width: 725px) {
-        grid-template-columns: minmax(300px, 450px);
+        grid-template-columns: minmax(250px, 450px);
         margin-bottom: 40px;
     }
 }
@@ -70,5 +70,9 @@
         margin: 0 auto;
         box-sizing: border-box;
         padding: 30px;
+    }
+
+    @media (max-width: 478px) {
+        padding: 20px;
     }
 }
