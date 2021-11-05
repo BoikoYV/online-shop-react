@@ -5,6 +5,8 @@
 
 *📝The project is still in development*
 
+*At the end of the file you can find features which i want to add*
+
 [Live Demo](https://online-shop-react.vercel.app/)
 
 ### 📚About the project
@@ -19,7 +21,14 @@ Online store of houses for pets consists of 4 pages:
 ![image](https://user-images.githubusercontent.com/68449997/138617518-7d8facff-1b8e-4a78-aea4-7927828eec42.png)
 
 ---
+#### 🛒 Cart page
+![image](https://user-images.githubusercontent.com/68449997/140518572-c64b5c95-256c-42f8-92a5-7999624c25fb.png)
 
+---
+#### ⭐️ Favourite page
+![image](https://user-images.githubusercontent.com/68449997/140518842-7ca265d6-d9cd-4e2b-9409-b075a4a08e05.png)
+
+---
 #### 🔎 404 page
 ![image](https://user-images.githubusercontent.com/68449997/140306025-9063cbd2-b0d0-478a-81a9-c2aaf1b8d46b.png)
 
